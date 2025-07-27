@@ -1,5 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
-
 :root {
   --blau: #06c;
+  --background-color: #F6F7F8; 
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  background-color: var(--background-color);
 }
