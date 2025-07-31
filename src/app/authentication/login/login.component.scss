@@ -1,3 +1,5 @@
+@use '../../../styles.scss' as *;
+
 section {
     background-color: white;
 }
@@ -5,4 +7,9 @@ section {
 form {
     display: flex;
     flex-direction: column;
+}
+
+.login-btn {
+    @include main-button(var(--main-button-color), 15px 24px);
+    @include styleFont(21px, 700);
 }
