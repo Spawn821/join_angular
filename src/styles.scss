@@ -1,10 +1,26 @@
 :root {
   --blau: #06c;
-  --background-color: #F6F7F8; 
+  --background-color: #F6F7F8;
+  --main-button-color: #2A3647; 
+  --icon: #A8A8A8;
+
 }
 
 * {
   margin: 0;
   box-sizing: border-box;
   background-color: var(--background-color);
+}
+
+@mixin main-button($bgcolor, $pd) {
+  background-color: $bgcolor;
+  padding: $pd;
+  border-radius: 8px;
+  color: #FFFF;
+  border: none;
+}
+
+@mixin styleFont($size, $weight) {
+  font-size: $size;
+  font-weight: $weight;
 }
