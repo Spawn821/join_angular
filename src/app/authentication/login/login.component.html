@@ -1,15 +1,28 @@
 <section>
     <h2>Log in</h2>
-
-    <form action="">
-        <div class="inputs">
-            <input type="text" placeholder="Email">
-            <input type="text" placeholder="Password">
-        </div>
-
-        <div class="buttons">
-            <button class="login-btn">Log in</button>
-            <button>Guest Log in</button>
-        </div>
+  
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="inputs">
+        <input 
+          type="email" 
+          formControlName="email" 
+          placeholder="Email"
+        >
+        <input 
+          type="password" 
+          formControlName="password" 
+          placeholder="Password"
+        >
+      </div>
+  
+      <div class="buttons">
+        <button type="submit" class="login-btn" [disabled]="loginForm.invalid">
+          Log in
+        </button>
+        <button type="button" (click)="guestLogin()">
+          Guest Log in
+        </button>
+      </div>
     </form>
-</section>
+  </section>
+  
