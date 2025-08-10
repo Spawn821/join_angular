@@ -1,13 +1,22 @@
 <section>
-    <h2>Log in</h2>
+    <div class="headline">
+        <h2>Log in</h2>
+        <div class="headline-seperator"></div>
+    </div>
   
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form class="formgroup" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="inputs">
-        <input 
+        <label for="email">
+          <div>
+            <img src="/img/mail.png" alt="Mail">
+          </div>
+          <input 
           type="email" 
           formControlName="email" 
           placeholder="Email"
         >
+        </label>
+
         <input 
           type="password" 
           formControlName="password" 

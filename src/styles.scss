@@ -3,13 +3,19 @@
   --background-color: #F6F7F8;
   --main-button-color: #2A3647; 
   --icon: #A8A8A8;
-
+  --seperator-color: #29ABE2; 
+  --border-color: #D1D1D1;
 }
 
 * {
   margin: 0;
   box-sizing: border-box;
   background-color: var(--background-color);
+}
+
+.max-width {
+  max-width: 1440px;
+  margin: auto;
 }
 
 @mixin main-button($bgcolor, $pd) {
@@ -20,7 +26,17 @@
   border: none;
 }
 
-@mixin styleFont($size, $weight) {
+@mixin styleFont($family, $size, $weight, $lineHeight) {
+  font-family: $family;
   font-size: $size;
   font-weight: $weight;
+  line-height: $lineHeight;
+}
+
+@mixin displayFlex($direction, $justify, $align, $gap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
 }
