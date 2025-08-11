@@ -1,1 +1,62 @@
-<p>signup works!</p>
+<section class="authentication-card">
+    <div class="headline">
+        <h2>Sign up</h2>
+        <div class="headline-seperator"></div>
+    </div>
+  
+    <form class="formgroup" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <div class="inputs">
+        <label for="person">
+          <div>
+            <img src="/img/person.png" alt="Person">
+          </div>
+          <input 
+          type="text" 
+          formControlName="text" 
+          placeholder="Name"
+        >
+        </label>
+
+        <label for="email">
+          <div>
+            <img src="/img/mail.png" alt="Mail">
+          </div>
+          <input 
+          type="email" 
+          formControlName="email" 
+          placeholder="Email"
+        >
+        </label>
+
+        <label for="password">
+            <div>
+              <img src="/img/lock.png" alt="Lock">
+            </div>
+            <input 
+            type="password" 
+            formControlName="password" 
+            placeholder="Password"
+          >
+          </label>
+
+          <label for="password">
+            <div>
+              <img src="/img/lock.png" alt="Lock">
+            </div>
+            <input 
+            type="password" 
+            formControlName="password" 
+            placeholder="Password"
+          >
+          </label>
+      </div>
+  
+      <div class="buttons">
+        <button type="submit" class="login-btn" [disabled]="">
+          Sign up
+        </button>
+      </div>
+    </form>
+  </section>
+  

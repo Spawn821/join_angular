@@ -10,7 +10,6 @@
 * {
   margin: 0;
   box-sizing: border-box;
-  background-color: var(--background-color);
 }
 
 .max-width {
@@ -39,4 +38,13 @@
   justify-content: $justify;
   align-items: $align;
   gap: $gap;
+}
+
+.secondary-btn {
+  border: 1px solid var(--main-button-color);
+  border-radius: 8px;
+  color: var(--main-button-color);
+  padding: 15px 24px;
+  @include styleFont('Inter', 21px, 700, 120%);
+  background-color: #FFFF;
 }

@@ -1,4 +1,4 @@
-<section>
+<section class="authentication-card">
     <div class="headline">
         <h2>Log in</h2>
         <div class="headline-seperator"></div>
@@ -17,18 +17,23 @@
         >
         </label>
 
-        <input 
+        <label for="password">
+          <div>
+            <img src="/img/lock.png" alt="Lock">
+          </div>
+          <input 
           type="password" 
           formControlName="password" 
           placeholder="Password"
         >
+        </label>
       </div>
   
       <div class="buttons">
         <button type="submit" class="login-btn" [disabled]="loginForm.invalid">
           Log in
         </button>
-        <button type="button" (click)="guestLogin()">
+        <button type="button" class="secondary-btn" (click)="guestLogin()">
           Guest Log in
         </button>
       </div>

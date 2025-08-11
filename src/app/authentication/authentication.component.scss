@@ -2,10 +2,15 @@
 
 section {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    @include displayFlex(column, space-around, center, 0);
+    background-color: var(--background-color);
+}
+
+.authentication-card {
+    background-color: #fFFF;
+    padding: 48px 115px;
+    @include displayFlex(column, center, center, 32px);
+    border-radius: 30px;
 }
 
 .height-100 {
@@ -34,18 +39,15 @@ section {
 
 .formgroup {
     @include displayFlex(column, center, center, 32px);
-    background-color: #FFFF;
 
     .inputs {
         @include displayFlex(column, center, center, 20px);
         width: 100%;
-        background-color: #FFFF;
         label {
             @include displayFlex(row-reverse, center, center, 0);
             padding: 12px 21px;
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            background-color: #FFFF;
             input {
                 width: 380px;
                 height: 24px;
@@ -55,23 +57,21 @@ section {
                 background: none;
                 appearance: none;
                 -webkit-appearance: none;
+                @include styleFont('Inter', 20px, 400, 120%);
             }
             div {
                 @include displayFlex(row, center, center, 0);
-                img {
-                    background-color: #FFFF;
-                }
+                width: 24px;
+                height: 24px;
             }
             ::placeholder {
                 @include styleFont('Inter', 20px, 400, 120%);
                 color: var(--border-color);
-                background-color: #FFFF;
             }
         }
     }
 
     .buttons {
-        background-color: #FFFF;
         @include displayFlex(row, center, center, 35px);
     }
 }
@@ -80,8 +80,6 @@ section {
     h2 {
         @include styleFont('Inter', 61px, 700, normal);
     }
-
-    background-color: #FFFF;
     @include displayFlex(column, center, center, 16px);
 
     .headline-seperator {
