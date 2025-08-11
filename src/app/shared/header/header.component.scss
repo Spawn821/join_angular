@@ -1,0 +1,36 @@
+@import "./../../../styles.scss";
+
+.header-section {
+  @include displayFlex(row, space-between, center);
+
+  width: 100vw;
+  padding: 20px 40px 20px 348px;
+  box-shadow: 0px 4px 4px 0px rgba(0 0 0 / 10%);
+  background-color: var(--color-white);
+}
+
+.headline {
+  @include styleFont(Inter, 20px, 400);
+}
+
+.help-initials-wrapper {
+  @include displayFlex(flex, center, center, 16px);
+}
+
+.initials-wrapper {
+  @include displayFlex(flex, center, center);
+
+  width: 56px;
+  height: 56px;
+
+  border: 3px solid black;
+  border-radius: 50%;
+
+  color: var(--color-black);
+}
+
+.initials {
+  color: var(--color-blue);
+
+  @include styleFont(Inter, 20px, 600);
+}

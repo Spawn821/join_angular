@@ -1,10 +1,14 @@
 :root {
   --blau: #06c;
-  --background-color: #F6F7F8;
-  --main-button-color: #2A3647; 
-  --icon: #A8A8A8;
-  --seperator-color: #29ABE2; 
-  --border-color: #D1D1D1;
+  --background-color: #f6f7f8;
+  --main-button-color: #2a3647;
+  --icon: #a8a8a8;
+  --seperator-color: #29abe2; //vorher
+  --border-color: #d1d1d1;
+
+  --color-white: #ffffff;
+  --color-blue: #29abe2; //nachher -> so würde ich mir die globalen Farben vorstellen
+  --color-balck: #2a3647;
 }
 
 * {
@@ -12,39 +16,36 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: var(--background-color);
+}
+
 .max-width {
   max-width: 1440px;
   margin: auto;
 }
 
+/* Mixins */
+
 @mixin main-button($bgcolor, $pd) {
   background-color: $bgcolor;
   padding: $pd;
   border-radius: 8px;
-  color: #FFFF;
+  color: #ffff;
   border: none;
 }
 
-@mixin styleFont($family, $size, $weight, $lineHeight) {
+@mixin styleFont($family, $size, $weight, $lineHeight: 0) {
   font-family: $family;
   font-size: $size;
   font-weight: $weight;
   line-height: $lineHeight;
 }
 
-@mixin displayFlex($direction, $justify, $align, $gap) {
+@mixin displayFlex($direction, $justify, $align, $gap: 0) {
   display: flex;
   flex-direction: $direction;
   justify-content: $justify;
   align-items: $align;
   gap: $gap;
-}
-
-.secondary-btn {
-  border: 1px solid var(--main-button-color);
-  border-radius: 8px;
-  color: var(--main-button-color);
-  padding: 15px 24px;
-  @include styleFont('Inter', 21px, 700, 120%);
-  background-color: #FFFF;
 }
