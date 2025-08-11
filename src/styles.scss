@@ -1,15 +1,22 @@
 :root {
   --blau: #06c;
-  --background-color: #F6F7F8;
-  --main-button-color: #2A3647; 
-  --icon: #A8A8A8;
-  --seperator-color: #29ABE2; 
-  --border-color: #D1D1D1;
+  --background-color: #f6f7f8;
+  --main-button-color: #2a3647;
+  --icon: #a8a8a8;
+  --seperator-color: #29abe2; //vorher
+  --border-color: #d1d1d1;
+
+  --color-white: #ffffff;
+  --color-blue: #29abe2; //nachher -> so würde ich mir die globalen Farben vorstellen
+  --color-balck: #2a3647;
 }
 
 * {
   margin: 0;
   box-sizing: border-box;
+}
+
+body {
   background-color: var(--background-color);
 }
 
@@ -22,7 +29,7 @@
   background-color: $bgcolor;
   padding: $pd;
   border-radius: 8px;
-  color: #FFFF;
+  color: #ffff;
   border: none;
 }
 
@@ -39,4 +46,15 @@
   justify-content: $justify;
   align-items: $align;
   gap: $gap;
+}
+
+/* Icons */
+
+.help-icon {
+  width: 32px;
+  height: 32px;
+
+  background-image: url("/img/help.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }

@@ -2,17 +2,22 @@ import { Routes } from '@angular/router';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
+import { PanelComponent } from './panel/panel.component';
 
 export const routes: Routes = [
   {
-    path: "", component: AuthenticationComponent,
+    path: '',
+    component: AuthenticationComponent,
     children: [
       {
-        path: "login", component: LoginComponent
+        path: 'login',
+        component: LoginComponent,
       },
       {
-        path: "signup", component: SignupComponent
-      }
-    ]
-  }
+        path: 'signup',
+        component: SignupComponent,
+      },
+    ],
+  },
+  { path: 'panel', component: PanelComponent },
 ];
