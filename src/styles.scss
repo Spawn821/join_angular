@@ -25,6 +25,8 @@ body {
   margin: auto;
 }
 
+/* Mixins */
+
 @mixin main-button($bgcolor, $pd) {
   background-color: $bgcolor;
   padding: $pd;
@@ -33,14 +35,14 @@ body {
   border: none;
 }
 
-@mixin styleFont($family, $size, $weight, $lineHeight) {
+@mixin styleFont($family, $size, $weight, $lineHeight: 0) {
   font-family: $family;
   font-size: $size;
   font-weight: $weight;
   line-height: $lineHeight;
 }
 
-@mixin displayFlex($direction, $justify, $align, $gap) {
+@mixin displayFlex($direction, $justify, $align, $gap: 0) {
   display: flex;
   flex-direction: $direction;
   justify-content: $justify;
