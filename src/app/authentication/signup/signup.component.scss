@@ -1,2 +1,18 @@
 @use '../../../styles.scss' as *;
 @use '../authentication.component.scss';
+
+fieldset {
+    padding: 0;
+    border: none;
+    @include displayFlex(row, center, center, 16px);
+
+    span {
+        @include styleFont('Inter', 16px, 400, 120%);
+        color: var(--icon);
+
+        span {
+            @include styleFont('Inter', 16px, 400, 120%);
+            color: var(--seperator-color);
+        }
+    }
+}

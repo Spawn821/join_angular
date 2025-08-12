@@ -1,7 +1,2 @@
 @use '../../../styles.scss' as *;
 @use '../authentication.component.scss';
-
-.login-btn {
-    @include main-button(var(--main-button-color), 15px 24px);
-    @include styleFont('Inter', 21px, 700, 120%);
-}

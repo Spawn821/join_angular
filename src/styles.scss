@@ -49,3 +49,8 @@ body {
   align-items: $align;
   gap: $gap;
 }
+
+.main-btn {
+  @include main-button(var(--main-button-color), 15px 24px);
+  @include styleFont('Inter', 21px, 700, 120%);
+}
