@@ -6,16 +6,26 @@
   
     <form class="formgroup" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="inputs">
-        <label for="email">
-          <div>
-            <img src="/img/mail.png" alt="Mail">
+        <div class="input-with-error">
+          <label for="email">
+            <div>
+              <img src="/img/mail.png" alt="Mail">
+            </div>
+            <input 
+            type="email" 
+            formControlName="email" 
+            placeholder="Email"
+          >
+          </label>
+          <div class="error">
+            @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']) {
+              <small>Email is required.</small>
+            }
+            @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']) {
+              <small>Please enter a valid email.</small>
+            }
           </div>
-          <input 
-          type="email" 
-          formControlName="email" 
-          placeholder="Email"
-        >
-        </label>
+        </div>
 
         <label for="password">
           <div>
@@ -33,7 +43,7 @@
         <button type="submit" class="main-btn" [disabled]="loginForm.invalid">
           Log in
         </button>
-        <button type="button" class="secondary-btn" (click)="guestLogin()">
+        <button type="button" class="main-btn guest-login-btn" (click)="guestLogin()">
           Guest Log in
         </button>
       </div>

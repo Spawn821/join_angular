@@ -69,6 +69,10 @@ section {
                 color: var(--border-color);
             }
         }
+
+        .input-with-error {
+            @include displayFlex(column, center, flex-start, 8px);
+        }
     }
 
     .buttons {
