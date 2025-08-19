@@ -16,3 +16,17 @@ fieldset {
         }
     }
 }
+
+.authentication-card {
+    position: relative;
+}
+
+a {
+    position: absolute;
+    top: 60px;
+    left: 60px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
