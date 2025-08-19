@@ -41,7 +41,7 @@ section {
     @include displayFlex(column, center, center, 32px);
 
     .inputs {
-        @include displayFlex(column, center, center, 20px);
+        @include displayFlex(column, center, center, 32px);
         width: 100%;
         label {
             @include displayFlex(row-reverse, center, center, 0);
@@ -69,14 +69,18 @@ section {
                 color: var(--border-color);
             }
         }
-
-        .input-with-error {
-            @include displayFlex(column, center, flex-start, 8px);
-        }
     }
 
     .buttons {
         @include displayFlex(row, center, center, 35px);
+    }
+}
+
+.input-with-error {
+    @include displayFlex(column, center, flex-start, 8px);
+
+    .error {
+        @include styleFont('Inter', 13px, 400, 120%);
     }
 }
 
@@ -87,7 +91,7 @@ section {
     @include displayFlex(column, center, center, 16px);
 
     .headline-seperator {
-        border-bottom: 3px solid var(--seperator-color);
+        border-bottom: 3px solid var(--light-blue);
         width: 50%;
     }
 }

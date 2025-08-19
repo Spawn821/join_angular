@@ -3,11 +3,11 @@
   --background-color: #f6f7f8;
   --main-button-color: #2a3647;
   --icon: #a8a8a8;
-  --seperator-color: #29abe2; //vorher
+  --light-blue: #29abe2;
   --border-color: #d1d1d1;
+  --active-btn: #091931;
 
   --color-white: #ffffff;
-  --color-blue: #29abe2; //nachher -> so würde ich mir die globalen Farben vorstellen
   --color-balck: #2a3647;
 }
 
@@ -53,4 +53,28 @@ body {
 .main-btn {
   @include main-button(var(--main-button-color), 15px 24px);
   @include styleFont('Inter', 21px, 700, 120%);
+}
+
+/* Pseudo-Klassen */
+
+.hover-main-btn:hover {
+  background-color: var(--light-blue);
+  cursor: pointer;
+  transition: all ease-in-out 100ms;
+}
+
+.active-main-btn:active {
+  background-color: var(--active-btn);
+}
+
+.secondary-btn {
+  &:hover:not(:active) {
+    cursor: pointer;
+    border: 1px solid var(--light-blue);
+    color: var(--light-blue);
+  }
+
+  &:active {
+    color: var(--main-button-color);
+    border: 1px solid var(--main-button-color);  }
 }

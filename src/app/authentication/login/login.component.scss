@@ -1,8 +1,9 @@
 @use '../../../styles.scss' as *;
 @use '../authentication.component.scss';
 
-.guest-login-btn {
+.secondary-btn {
     color: var(--main-button-color);
     background-color: #FFFF;
     border: 1px solid var(--main-button-color);
+    transition: all ease-in-out 100ms;
 }

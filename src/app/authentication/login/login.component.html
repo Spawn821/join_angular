@@ -17,36 +17,30 @@
             placeholder="Email"
           >
           </label>
-          <div class="error">
-            @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']) {
-              <small>Email is required.</small>
-            }
-            @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']) {
-              <small>Please enter a valid email.</small>
-            }
-          </div>
         </div>
-
-        <label for="password">
-          <div>
-            <img src="/img/lock.png" alt="Lock">
-          </div>
-          <input 
-          type="password" 
-          formControlName="password" 
-          placeholder="Password"
-        >
-        </label>
+        
+        <div class="input-with-error">
+          <label for="password">
+            <div>
+              <img src="/img/lock.png" alt="Lock">
+            </div>
+            <input 
+            type="password" 
+            formControlName="password" 
+            placeholder="Password"
+          >
+          </label>
+          <div class="error">Test</div>
+        </div>
       </div>
   
       <div class="buttons">
-        <button type="submit" class="main-btn" [disabled]="loginForm.invalid">
+        <button type="submit" class="main-btn hover-main-btn active-main-btn" [disabled]="loginForm.invalid">
           Log in
         </button>
-        <button type="button" class="main-btn guest-login-btn" (click)="guestLogin()">
+        <button type="button" class="main-btn secondary-btn" (click)="guestLogin()">
           Guest Log in
         </button>
       </div>
     </form>
   </section>
-  
