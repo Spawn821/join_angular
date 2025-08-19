@@ -19,21 +19,41 @@ section {
 
 .login-header {
     width:100%;
-    display: flex;
-    justify-content: space-between;
+    @include displayFlex(row, space-between, flex-start, 0);
+
+    .forwarding-signup {
+        @include displayFlex(row, center, center, 35px);
+
+        span {
+            @include styleFont('Inter', 20px, 400, 120%);
+        }
+    }
 }
 
 .signup-btn {
-    @include main-button(var(--main-button-color), 15px 16px)
+    @include main-button(var(--main-button-color), 15px 16px);
+    @include styleFont('Inter', 16px, 700, 120%);
 }
 
 .legals {
     display: flex;
     gap: 12px;
 
-    a {
-        text-decoration: none;
-        color: var(--icon);
+    article {
+        padding: 8px;
+
+        a {
+            text-decoration: none;
+            color: var(--icon);
+            @include styleFont('Inter', 16px, 400, 120%);
+
+            &:hover {
+                cursor: pointer;
+                color: var(--light-blue);
+                font-weight: 700;
+                transition: all ease-in-out 100ms;
+            }
+        }
     }
 }
 

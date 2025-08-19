@@ -1,16 +1,24 @@
 <section class="max-width height-100">
     <div class="login-header">
-        <div>placeholder</div>
-        <div>
-            <span>Not a Join user?</span>
-            <button class="signup-btn">Sign up</button>
-        </div>
+        <aside>
+            <img src="/img/logo_join.png" alt="Logo_Join">
+        </aside>
+        @if (Router.url === '/login') {
+            <aside class="forwarding-signup">
+                <span>Not a Join user?</span>
+                <button [routerLink]="['/signup']" class="signup-btn hover-main-btn active-main-btn">Sign up</button>
+            </aside>
+        }
     </div>
-    <div>
+    <article>
         <router-outlet />
-    </div>
+    </article>
     <div class="legals">
-        <a href="#">Privacy Police</a>
-        <a href="#">Legal Notice</a>
+        <article>
+            <a href="#">Privacy Police</a>
+        </article>
+        <article>
+            <a href="#">Legal Notice</a>
+        </article>
     </div>
 </section>
