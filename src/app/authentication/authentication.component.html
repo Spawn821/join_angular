@@ -3,7 +3,7 @@
         <aside>
             <img src="/img/logo_join.png" alt="Logo_Join">
         </aside>
-        @if (Router.url === '/login') {
+        @if (Router.url === '/') {
             <aside class="forwarding-signup">
                 <span>Not a Join user?</span>
                 <button [routerLink]="['/signup']" class="signup-btn hover-main-btn active-main-btn">Sign up</button>
