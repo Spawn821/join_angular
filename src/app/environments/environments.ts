@@ -3,6 +3,6 @@ import { initializeApp } from "firebase/app";
 export const environment = {
     production: false,
     firebase: {
-        'hallo': 'test123',
+        'hallo': 'test1234566',
     },
   };
