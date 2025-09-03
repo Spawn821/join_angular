@@ -1,72 +1,46 @@
 <section class="authentication-card">
+  <a [routerLink]="['/']" class="backlink">
+    <img src="/img/arrow-left-line.png" alt="Arrow-Left">
+  </a>
 
-    <a [routerLink]="['/']" class="backlink">
-      <img src="/img/arrow-left-line.png" alt="Arrow-Left">
-    </a>
+  <div class="headline">
+    <h2>Sign up</h2>
+    <div class="headline-seperator"></div>
+  </div>
 
-    <div class="headline">
-        <h2>Sign up</h2>
-        <div class="headline-seperator"></div>
+  <form class="formgroup" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <div class="inputs">
+      <label>
+        <div><img src="/img/person.png" alt="Person"></div>
+        <input type="text" formControlName="person" placeholder="Name">
+      </label>
+
+      <label>
+        <div><img src="/img/mail.png" alt="Mail"></div>
+        <input type="email" formControlName="email" placeholder="Email">
+      </label>
+
+      <label>
+        <div><img src="/img/lock.png" alt="Lock"></div>
+        <input type="password" formControlName="password" placeholder="Password">
+      </label>
+
+      <label>
+        <div><img src="/img/lock.png" alt="Lock"></div>
+        <input type="password" formControlName="confirmPassword" placeholder="Confirm Password">
+      </label>
+
+      <fieldset class="check-privacypolice">
+        <input type="checkbox" formControlName="acceptPolicy">
+        <span>I accept the <span>Privacy policy</span></span>
+      </fieldset>
     </div>
-  
-    <form class="formgroup" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-      <div class="inputs">
-        <label for="person">
-          <div>
-            <img src="/img/person.png" alt="Person">
-          </div>
-          <input 
-          type="text" 
-          formControlName="person" 
-          placeholder="Name"
-        >
-        </label>
-
-        <label for="email">
-          <div>
-            <img src="/img/mail.png" alt="Mail">
-          </div>
-          <input 
-          type="email" 
-          formControlName="email" 
-          placeholder="Email"
-        >
-        </label>
-
-        <label for="password">
-            <div>
-              <img src="/img/lock.png" alt="Lock">
-            </div>
-            <input 
-            type="password" 
-            formControlName="password" 
-            placeholder="Password"
-          >
-          </label>
-
-          <label for="password">
-            <div>
-              <img src="/img/lock.png" alt="Lock">
-            </div>
-            <input 
-            type="password" 
-            formControlName="password" 
-            placeholder="Password"
-          >
-          </label>
-
-          <fieldset class="check-privacypolice" for="checkPrivacypolice">
-            <input type="checkbox">
-            <span>I accept the <span>Privacy policy</span></span>
-          </fieldset>
-      </div>
-  
-      <div class="buttons">
-        <button type="submit" class="main-btn" [disabled]="">
-          Sign up
-        </button>
-      </div>
-    </form>
-  </section>
-  
+    <div class="buttons">
+      <button type="submit" class="main-btn hover-main-btn active-main-btn" [disabled]="loginForm.invalid">
+        Sign up
+      </button>
+    </div>
+  </form>
+</section>

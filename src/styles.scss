@@ -11,20 +11,6 @@
   --color-balck: #2a3647;
 }
 
-* {
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background-color: var(--background-color);
-}
-
-.max-width {
-  max-width: 1440px;
-  margin: auto;
-}
-
 /* Mixins */
 
 @mixin main-button($bgcolor, $pd) {
@@ -48,6 +34,20 @@ body {
   justify-content: $justify;
   align-items: $align;
   gap: $gap;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+.max-width {
+  max-width: 1440px;
+  margin: auto;
 }
 
 .main-btn {
