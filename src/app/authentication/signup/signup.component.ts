@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../services/authentication/auth.service';
+import { FirestoreService } from '../../services/firestore/firestore.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,8 +12,10 @@ import { AuthService } from '../../services/authentication/auth.service';
 })
 export class SignupComponent {
   loginForm!: FormGroup;
+
   private fb = inject(FormBuilder);
   authService: AuthService = inject(AuthService);
+  firestoreService: FirestoreService = inject(FirestoreService);
   private Route = inject(Router);
 
   ngOnInit(): void {
@@ -34,11 +37,25 @@ export class SignupComponent {
     return password === confirmPassword ? null : { passwordsMismatch: true };
   };
 
-  onSubmit() {
+  async onSubmit() {
     if (this.loginForm.valid) {
-      this.authService.createUserAccount(this.loginForm.value);
-      this.loginForm.reset();
-      this.Route.navigate(['/']);
+      try {
+        const userID = await this.authService.createUserAccount(this.loginForm.value);
+        const userData = this.getUserData(userID);
+        this.firestoreService.addUserToCollection(userData);
+        this.loginForm.reset();
+        this.Route.navigate(['/']);
+      } catch (error) {
+        console.error('Registrierung fehlgeschlagen:', error);
+      }
+    }
+  }
+
+  getUserData(userID:string) {
+    return {
+      'name': this.loginForm.value.person,
+      'email': this.loginForm.value.email,
+      'uid': userID,
     }
   }
 }
