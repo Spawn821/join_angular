@@ -6,6 +6,20 @@ section {
     background-color: var(--background-color);
 }
 
+.main-logo {
+    position: absolute;
+    z-index: 6;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: moveLogo 3s forwards;
+    animation-delay: 2s;
+    img {
+        animation: imageSize 3s forwards;
+        animation-delay: 2s;
+    }
+}
+
 .authentication-card {
     background-color: #fFFF;
     padding: 48px 115px;
@@ -17,9 +31,13 @@ section {
     height: 100vh;
 }
 
+.p-relative {
+    position: relative;
+}
+
 .login-header {
     width:100%;
-    @include displayFlex(row, space-between, flex-start, 0);
+    @include displayFlex(row, flex-end, flex-start, 0);
 
     .forwarding-signup {
         @include displayFlex(row, center, center, 35px);
@@ -113,5 +131,52 @@ section {
     .headline-seperator {
         border-bottom: 3px solid var(--light-blue);
         width: 50%;
+    }
+}
+
+.startscreen {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 5;
+    background-color: #F6F7F8;
+    animation: disappear-startscreen 3s forwards;
+    animation-delay: 3s;
+}
+
+@keyframes disappear-startscreen {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+@keyframes moveLogo {
+    0% {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    100% {
+      top: 20px;
+      left: 20px;
+      right: auto;
+      transform: none;
+    }
+  }
+
+@keyframes imageSize {
+    0% {
+        width: 274px;
+        height: 334.07px;
+    }
+    100% {
+        width: 100.3px;
+        height: 121.97px;
     }
 }

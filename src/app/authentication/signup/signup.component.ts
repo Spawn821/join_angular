@@ -14,8 +14,8 @@ export class SignupComponent {
   loginForm!: FormGroup;
 
   private fb = inject(FormBuilder);
-  authService: AuthService = inject(AuthService);
-  firestoreService: FirestoreService = inject(FirestoreService);
+  authService = inject(AuthService);
+  firestoreService = inject(FirestoreService);
   private Route = inject(Router);
 
   ngOnInit(): void {
