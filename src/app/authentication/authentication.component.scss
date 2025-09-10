@@ -2,8 +2,9 @@
 
 section {
     width: 100%;
-    @include displayFlex(column, space-around, center, 0);
+    @include displayFlex(column, space-between, center, 0);
     background-color: var(--background-color);
+    padding: 60px 0;
 }
 
 .main-logo {
@@ -163,10 +164,10 @@ section {
       transform: translate(-50%, -50%);
     }
     100% {
-      top: 20px;
-      left: 20px;
-      right: auto;
-      transform: none;
+        top: 60px;
+        left: 0;
+        right: auto;
+        transform: none;
     }
   }
 
