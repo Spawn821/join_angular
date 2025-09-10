@@ -1,16 +1,15 @@
-import { Injectable, signal } from '@angular/core';
-import { Auth, getAuth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { inject, Injectable, signal } from '@angular/core';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, Auth, signOut } from '@angular/fire/auth';
 import { SignupLoginForm } from '../../interfaces/signup-login-form';
+import { LoginData } from '../../interfaces/login-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  auth = getAuth();
+  private auth = inject(Auth);
   registratedUserID = signal('');
-
-  constructor(private firebaseAuth: Auth) { }
 
   async createUserAccount(loginForm:SignupLoginForm) {
     try {
@@ -24,5 +23,26 @@ export class AuthService {
       console.error('Fehler beim Registrieren:', error);
       throw error;
     }
+  }
+
+  login(loginData: LoginData) {
+    signInWithEmailAndPassword(this.auth, loginData.email, loginData.password)
+    .then((userCredential) => {
+      // Signed in 
+      console.log('User logged in');
+      const user = userCredential.user;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+  }
+
+  logout() {
+    signOut(this.auth).then(() => {
+      console.log('User logged out');
+    }).catch((error) => {
+      // An error happened.
+    });
   }
 }

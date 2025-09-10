@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/authentication/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
   private fb = inject(FormBuilder);
+  authService = inject(AuthService);
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      console.log('Form submitted:', { email, password });
+      this.authService.login(this.loginForm.value);
+      // console.log('Form submitted:', { email, password });
     }
   }
 
