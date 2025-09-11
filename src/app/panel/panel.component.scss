@@ -1,0 +1,9 @@
+@use './../../styles.scss' as *;
+
+.panel-wrapper {
+  @include displayFlex(row, flex-start, flex-start);
+}
+
+.header-wrapper {
+  @include displayFlex(column, flex-start, flex-start);
+}

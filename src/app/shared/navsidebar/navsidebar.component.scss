@@ -1,0 +1,92 @@
+@use './../../../styles.scss' as *;
+
+.navsidebar-wrapper {
+  @include displayFlex(column, space-between, center);
+
+  width: var(--navsidebar-width);
+  height: 100vh;
+  background: var(--color-black);
+
+  padding-top: 64px;
+  padding-bottom: 64px;
+
+  > img {
+      width: 100px;
+      height: 122px;
+  }
+}
+
+.nav-wrapper {
+  width: 100%;
+
+  @include displayFlex(column, space-between, flex-start, 15px);
+  @include styleFont(Inter, 16px, 400);
+
+  > div {
+    width: 100%;
+
+    @include displayFlex(row, flex-start, center, 8px);
+
+    padding: 8px 0 8px 56px;
+
+    span {
+      color: var(--color-pale-white);
+      padding: 8px 0 8px 0;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--color-black-hover);
+      span {
+        color: var(--color-white);
+      }
+
+      &:has(.summary-icon) {
+        .summary-icon {
+          background-image: url('/img/summary_icon_hover.png');
+        }
+      }
+
+      &:has(.add-task-icon) {
+        .add-task-icon {
+          background-image: url('/img/add_task_icon_hover.png');
+        }
+      }
+
+      &:has(.board-icon) {
+        .board-icon {
+          background-image: url('/img/board_icon_hover.png');
+        }
+      }
+
+      &:has(.contacts-icon) {
+        .contacts-icon {
+          background-image: url('/img/contacts_icon_hover.png');
+        }
+      }
+    }
+  }
+}
+
+.icon-size {
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.summary-icon {
+  background-image: url('/img/summary_icon.png');
+}
+
+.add-task-icon {
+  background-image: url('/img/add_task_icon.png');
+}
+
+.board-icon {
+  background-image: url('/img/board_icon.png');
+}
+
+.contacts-icon {
+  background-image: url('/img/contacts_icon.png');
+}
