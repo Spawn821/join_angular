@@ -3,6 +3,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { PanelComponent } from './panel/panel.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -19,5 +20,6 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: 'panel', component: PanelComponent },
+  { path: 'panel', component: PanelComponent, canActivate: [AuthGuard], },
+  { path: '**', redirectTo: '/login' }
 ];

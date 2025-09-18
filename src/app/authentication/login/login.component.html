@@ -12,11 +12,17 @@
               <img src="/img/mail.png" alt="Mail">
             </div>
             <input 
-            type="email" 
-            formControlName="email" 
-            placeholder="Email"
-          >
+              type="email" 
+              formControlName="email" 
+              placeholder="Email"
+              id="email"
+            >
           </label>
+          @if (loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')) {
+            <div class="error">
+              Email is required.
+            </div>
+          }
         </div>
         
         <div class="input-with-error">
@@ -25,12 +31,17 @@
               <img src="/img/lock.png" alt="Lock">
             </div>
             <input 
-            type="password" 
-            formControlName="password" 
-            placeholder="Password"
-          >
+              type="password" 
+              formControlName="password" 
+              placeholder="Password"
+              id="password"
+            >
           </label>
-          <div class="error">Test</div>
+          @if (loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')) {
+            <div class="error">
+              Password is required.
+            </div>
+          }
         </div>
       </div>
   

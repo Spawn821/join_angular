@@ -117,9 +117,12 @@ section {
 
 .input-with-error {
     @include displayFlex(column, center, flex-start, 8px);
+    position: relative;
 
     .error {
         @include styleFont('Inter', 13px, 400, 120%);
+        position: absolute;
+        top: 100%;
     }
 }
 
