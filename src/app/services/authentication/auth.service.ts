@@ -46,7 +46,7 @@ export class AuthService {
     signOut(this.auth).then(() => {
       console.log('User logged out');
     }).catch((error) => {
-      // An error happened.
+      console.error('Error during logout:', error);
     });
   }
 
