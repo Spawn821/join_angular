@@ -11,22 +11,22 @@
   <form class="formgroup" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
     <div class="inputs">
-      <label>
+      <label class="border-success">
         <div><img src="/img/person.png" alt="Person"></div>
         <input type="text" formControlName="person" placeholder="Name">
       </label>
 
-      <label>
+      <label class="border-success">
         <div><img src="/img/mail.png" alt="Mail"></div>
         <input type="email" formControlName="email" placeholder="Email">
       </label>
 
-      <label>
+      <label class="border-success">
         <div><img src="/img/lock.png" alt="Lock"></div>
         <input type="password" formControlName="password" placeholder="Password">
       </label>
 
-      <label>
+      <label class="border-success">
         <div><img src="/img/lock.png" alt="Lock"></div>
         <input type="password" formControlName="confirmPassword" placeholder="Confirm Password">
       </label>

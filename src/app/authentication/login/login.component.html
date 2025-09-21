@@ -7,7 +7,7 @@
     <form class="formgroup" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="inputs">
         <div class="input-with-error">
-          <label for="email">
+          <label for="email" [ngClass]="loginError ? 'border-error' : 'border-success'">
             <div>
               <img src="/img/mail.png" alt="Mail">
             </div>
@@ -16,17 +16,13 @@
               formControlName="email" 
               placeholder="Email"
               id="email"
+              (input)="setLoginError()"
             >
           </label>
-          @if (loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')) {
-            <div class="error">
-              Email is required.
-            </div>
-          }
         </div>
         
         <div class="input-with-error">
-          <label for="password">
+          <label for="password" [ngClass]="loginError ? 'border-error' : 'border-success'">
             <div>
               <img src="/img/lock.png" alt="Lock">
             </div>
@@ -35,12 +31,11 @@
               formControlName="password" 
               placeholder="Password"
               id="password"
+              (input)="setLoginError()"
             >
           </label>
-          @if (loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')) {
-            <div class="error">
-              Password is required.
-            </div>
+          @if (loginError) {
+            <div class="error">Check your email and password. Please try again.</div>
           }
         </div>
       </div>

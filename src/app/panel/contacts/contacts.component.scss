@@ -1,0 +1,18 @@
+@use './../../../styles.scss' as *;
+
+section {
+    @include displayFlex(row, center, center, 0);
+}
+
+.contacts {
+    width: 456px;
+    height: calc(100vh - 96px);
+    background-color: var(--color-white);
+    @include displayFlex(column, flex-start, center, 0);
+
+    button {
+        padding: 12px;
+        width: 352px;
+        @include displayFlex(row, center, center, 16px);
+    }
+}

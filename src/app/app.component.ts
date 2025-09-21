@@ -19,16 +19,15 @@ export class AppComponent {
   ngOnInit() {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // Prüfe, ob der Benutzer zur Login-Seite navigiert
         if (event.url === '/') {
-          this.logout(); // Benutzer ausloggen
+          this.logout();
         }
       }
     });
   }
 
   private async logout() {
-    await this.auth.logout(); // Firebase-Logout
+    this.auth.logout();
     console.log('User logged out automatically');
   }
 }

@@ -27,20 +27,13 @@ export class AuthService {
     }
   }
 
-  login(loginData: LoginData) {
-    signInWithEmailAndPassword(this.auth, loginData.email, loginData.password)
+async login(loginData: LoginData) {
+  return signInWithEmailAndPassword(this.auth, loginData.email, loginData.password)
     .then((userCredential) => {
       this.setPersistence();
       this.router.navigate(['/panel']);
-      // Signed in 
-      // console.log('User logged in');
-      // const user = userCredential.user;
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
     });
-  }
+}
 
   logout() {
     signOut(this.auth).then(() => {
