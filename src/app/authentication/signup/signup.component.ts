@@ -1,14 +1,23 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../services/authentication/auth.service';
 import { FirestoreService } from '../../services/firestore/firestore.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  styleUrl: './signup.component.scss',
 })
 export class SignupComponent {
   loginForm!: FormGroup;
@@ -18,6 +27,9 @@ export class SignupComponent {
   firestoreService = inject(FirestoreService);
   private Route = inject(Router);
 
+  // show: boolean = false;
+  // hasValue: boolean = false;
+
   ngOnInit(): void {
     this.loginForm = this.fb.group(
       {
@@ -25,13 +37,15 @@ export class SignupComponent {
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required],
         confirmPassword: ['', Validators.required],
-        acceptPolicy: [false, Validators.requiredTrue]
+        acceptPolicy: [false, Validators.requiredTrue],
       },
-      { validators: this.passwordsMatchValidator }
+      { validators: this.passwordsMatchValidator },
     );
   }
 
-  passwordsMatchValidator: ValidatorFn = (form: AbstractControl): ValidationErrors | null => {
+  passwordsMatchValidator: ValidatorFn = (
+    form: AbstractControl,
+  ): ValidationErrors | null => {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordsMismatch: true };
@@ -40,7 +54,9 @@ export class SignupComponent {
   async onSubmit() {
     if (this.loginForm.valid) {
       try {
-        const userID = await this.authService.createUserAccount(this.loginForm.value);
+        const userID = await this.authService.createUserAccount(
+          this.loginForm.value,
+        );
         const userData = this.getUserData(userID);
         this.firestoreService.addUserToCollection(userData);
         this.loginForm.reset();
@@ -51,11 +67,44 @@ export class SignupComponent {
     }
   }
 
-  getUserData(userID:string) {
+  getUserData(userID: string) {
     return {
-      'name': this.loginForm.value.person,
-      'email': this.loginForm.value.email,
-      'uid': userID,
-    }
+      name: this.loginForm.value.person,
+      email: this.loginForm.value.email,
+      uid: userID,
+    };
+  }
+
+  // password() {
+  //   this.show = !this.show;
+  // }
+
+  // checkValue(event: Event) {
+  //   const input = event.target as HTMLInputElement;
+  //   this.hasValue = input.value.length > 0;
+  // }
+
+  passwordFields = [
+    {
+      controlName: 'password',
+      placeholder: 'Password',
+      show: false,
+      hasValue: false,
+    },
+    {
+      controlName: 'confirmPassword',
+      placeholder: 'Confirm Password',
+      show: false,
+      hasValue: false,
+    },
+  ];
+
+  togglePassword(index: number) {
+    this.passwordFields[index].show = !this.passwordFields[index].show;
+  }
+
+  updateValue(index: number, event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.passwordFields[index].hasValue = input.value.length > 0;
   }
 }

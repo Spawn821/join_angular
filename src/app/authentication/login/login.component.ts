@@ -23,15 +23,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-onSubmit(): void {
-  console.log(this.loginForm.value);
-  
+onSubmit(): void {  
   if (this.loginForm.valid) {
      this.authService.login(this.loginForm.value)
       .catch(() => {
         this.loginError = true;
-        // this.loginForm.get('email');
-        // this.loginForm.get('password');
       });
   }
 }
@@ -39,9 +35,9 @@ onSubmit(): void {
   guestLogin(): void {
     this.loginForm.setValue({
       email: 'guest@example.com',
-      password: 'guest'
+      password: 'guest123'
     });
-    console.log('Guest login selected');
+    this.onSubmit();
   }
 
   setLoginError() {

@@ -1,6 +1,6 @@
 <section class="authentication-card">
   <a [routerLink]="['/']" class="backlink">
-    <img src="/img/arrow-left-line.png" alt="Arrow-Left">
+    <img src="/img/arrow-left-line.png" alt="Arrow-Left" />
   </a>
 
   <div class="headline">
@@ -9,36 +9,76 @@
   </div>
 
   <form class="formgroup" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
     <div class="inputs">
       <label class="border-success">
-        <div><img src="/img/person.png" alt="Person"></div>
-        <input type="text" formControlName="person" placeholder="Name">
+        <div><img src="/img/person.png" alt="Person" /></div>
+        <input type="text" formControlName="person" placeholder="Name" />
       </label>
 
       <label class="border-success">
-        <div><img src="/img/mail.png" alt="Mail"></div>
-        <input type="email" formControlName="email" placeholder="Email">
+        <div><img src="/img/mail.png" alt="Mail" /></div>
+        <input type="email" formControlName="email" placeholder="Email" />
+      </label>
+
+      @for (field of passwordFields; track $index) {
+        <label class="border-success">
+          <div (click)="togglePassword($index)">
+            @if (field.show && field.hasValue) {
+              <img src="/img/visibility.png" alt="visibility_off" />
+            } @else if (!field.show && field.hasValue) {
+              <img src="/img/visibility_off.png" alt="visibility" />
+            } @else {
+              <img src="/img/lock.png" alt="Lock" />
+            }
+          </div>
+
+          <input
+            [type]="field.show ? 'text' : 'password'"
+            [formControlName]="field.controlName"
+            placeholder="{{ field.placeholder }}"
+            (input)="updateValue($index, $event)"
+          />
+        </label>
+      }
+
+      <!-- <label class="border-success">
+        <div (click)="password()">
+          @if (show && hasValue) {
+            <img src="/img/visibility.png" alt="visibility_off">
+          } @else if(!show && hasValue) {
+            <img src="/img/visibility_off.png" alt="visibility">
+          } @else {
+            <img src="/img/lock.png" alt="Lock">
+          }
+        </div>
+        <input (input)="checkValue($event)" [type]="show ? 'text' : 'password'" formControlName="password" placeholder="Password">
       </label>
 
       <label class="border-success">
-        <div><img src="/img/lock.png" alt="Lock"></div>
-        <input type="password" formControlName="password" placeholder="Password">
-      </label>
-
-      <label class="border-success">
-        <div><img src="/img/lock.png" alt="Lock"></div>
-        <input type="password" formControlName="confirmPassword" placeholder="Confirm Password">
-      </label>
+        <div (click)="password()">
+          @if (show && hasValue) {
+            <img src="/img/visibility.png" alt="visibility_off">
+          } @else if(!show && hasValue) {
+            <img src="/img/visibility_off.png" alt="visibility">
+          } @else {
+            <img src="/img/lock.png" alt="Lock">
+          }
+        </div>
+        <input (input)="checkValue($event)" [type]="show ? 'text' : 'password'" formControlName="password" placeholder="Password">
+      </label> -->
 
       <fieldset class="check-privacypolice">
-        <input type="checkbox" formControlName="acceptPolicy">
+        <input type="checkbox" formControlName="acceptPolicy" />
         <span>I accept the <span>Privacy policy</span></span>
       </fieldset>
     </div>
 
     <div class="buttons">
-      <button type="submit" class="main-btn hover-main-btn active-main-btn" [disabled]="loginForm.invalid">
+      <button
+        type="submit"
+        class="main-btn hover-main-btn active-main-btn"
+        [disabled]="loginForm.invalid"
+      >
         Sign up
       </button>
     </div>
