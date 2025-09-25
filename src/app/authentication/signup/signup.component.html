@@ -15,13 +15,26 @@
         <input type="text" formControlName="person" placeholder="Name" />
       </label>
 
-      <label class="border-success">
+      <label
+        [ngClass]="
+          loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+            ? 'border-error'
+            : 'border-success'
+        "
+      >
         <div><img src="/img/mail.png" alt="Mail" /></div>
         <input type="email" formControlName="email" placeholder="Email" />
       </label>
 
       @for (field of passwordFields; track $index) {
-        <label class="border-success">
+        <label
+          [ngClass]="
+            loginForm.hasError('passwordsMismatch') &&
+            loginForm.get(field.controlName)?.touched
+              ? 'border-error'
+              : 'border-success'
+          "
+        >
           <div (click)="togglePassword($index)">
             @if (field.show && field.hasValue) {
               <img src="/img/visibility.png" alt="visibility_off" />
@@ -31,7 +44,6 @@
               <img src="/img/lock.png" alt="Lock" />
             }
           </div>
-
           <input
             [type]="field.show ? 'text' : 'password'"
             [formControlName]="field.controlName"
@@ -41,36 +53,20 @@
         </label>
       }
 
-      <!-- <label class="border-success">
-        <div (click)="password()">
-          @if (show && hasValue) {
-            <img src="/img/visibility.png" alt="visibility_off">
-          } @else if(!show && hasValue) {
-            <img src="/img/visibility_off.png" alt="visibility">
-          } @else {
-            <img src="/img/lock.png" alt="Lock">
-          }
-        </div>
-        <input (input)="checkValue($event)" [type]="show ? 'text' : 'password'" formControlName="password" placeholder="Password">
-      </label>
-
-      <label class="border-success">
-        <div (click)="password()">
-          @if (show && hasValue) {
-            <img src="/img/visibility.png" alt="visibility_off">
-          } @else if(!show && hasValue) {
-            <img src="/img/visibility_off.png" alt="visibility">
-          } @else {
-            <img src="/img/lock.png" alt="Lock">
-          }
-        </div>
-        <input (input)="checkValue($event)" [type]="show ? 'text' : 'password'" formControlName="password" placeholder="Password">
-      </label> -->
-
       <fieldset class="check-privacypolice">
+        <div
+          class="fake-checkbox"
+          [class.checked]="loginForm.get('acceptPolicy')?.value"
+        >
+          <span (click)="togglePolicy()" class="checkbox-icon"></span>
+          <span>I accept the <span>Privacy policy</span></span>
+        </div>
+      </fieldset>
+
+      <!-- <fieldset class="check-privacypolice">
         <input type="checkbox" formControlName="acceptPolicy" />
         <span>I accept the <span>Privacy policy</span></span>
-      </fieldset>
+      </fieldset> -->
     </div>
 
     <div class="buttons">

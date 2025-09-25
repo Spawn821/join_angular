@@ -22,13 +22,25 @@ import { CommonModule } from '@angular/common';
 export class SignupComponent {
   loginForm!: FormGroup;
 
+  passwordFields = [
+    {
+      controlName: 'password',
+      placeholder: 'Password',
+      show: false,
+      hasValue: false,
+    },
+    {
+      controlName: 'confirmPassword',
+      placeholder: 'Confirm Password',
+      show: false,
+      hasValue: false,
+    },
+  ];
+
   private fb = inject(FormBuilder);
   authService = inject(AuthService);
   firestoreService = inject(FirestoreService);
   private Route = inject(Router);
-
-  // show: boolean = false;
-  // hasValue: boolean = false;
 
   ngOnInit(): void {
     this.loginForm = this.fb.group(
@@ -52,6 +64,7 @@ export class SignupComponent {
   };
 
   async onSubmit() {
+    debugger;
     if (this.loginForm.valid) {
       try {
         const userID = await this.authService.createUserAccount(
@@ -75,30 +88,6 @@ export class SignupComponent {
     };
   }
 
-  // password() {
-  //   this.show = !this.show;
-  // }
-
-  // checkValue(event: Event) {
-  //   const input = event.target as HTMLInputElement;
-  //   this.hasValue = input.value.length > 0;
-  // }
-
-  passwordFields = [
-    {
-      controlName: 'password',
-      placeholder: 'Password',
-      show: false,
-      hasValue: false,
-    },
-    {
-      controlName: 'confirmPassword',
-      placeholder: 'Confirm Password',
-      show: false,
-      hasValue: false,
-    },
-  ];
-
   togglePassword(index: number) {
     this.passwordFields[index].show = !this.passwordFields[index].show;
   }
@@ -107,4 +96,11 @@ export class SignupComponent {
     const input = event.target as HTMLInputElement;
     this.passwordFields[index].hasValue = input.value.length > 0;
   }
+
+  togglePolicy() {
+  const control = this.loginForm.get('acceptPolicy');
+  if (control) {
+    control.setValue(!control.value);
+  }
+}
 }

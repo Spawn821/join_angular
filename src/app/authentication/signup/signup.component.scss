@@ -1,32 +1,54 @@
-@use '../../../styles.scss' as *;
-@use '../authentication.component.scss';
+@use "../../../styles.scss" as *;
+@use "../authentication.component.scss";
 
 fieldset {
-    padding: 0;
-    border: none;
-    @include displayFlex(row, center, center, 16px);
+  padding: 0;
+  border: none;
+  @include displayFlex(row, center, center, 16px);
+
+  span {
+    @include styleFont("Inter", 16px, 400, 120%);
+    color: var(--icon);
 
     span {
-        @include styleFont('Inter', 16px, 400, 120%);
-        color: var(--icon);
-
-        span {
-            @include styleFont('Inter', 16px, 400, 120%);
-            color: var(--seperator-color);
-        }
+      @include styleFont("Inter", 16px, 400, 120%);
+      color: var(--seperator-color);
     }
+  }
 }
 
 .authentication-card {
-    position: relative;
+  position: relative;
 }
 
 a {
-    position: absolute;
-    top: 60px;
-    left: 60px;
+  position: absolute;
+  top: 60px;
+  left: 60px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.fake-checkbox {
+  @include displayFlex(row, center, center, 8px);
+
+  .checkbox-icon {
+    cursor: pointer;
+    width: 20px;
+    height: 19.2px;
+    background: url("/img/box_unchecked.png") no-repeat center/contain;
+    &:hover {
+      background: url("/img/box_hover_unchecked.png") no-repeat center/contain;
+    }
+  }
+
+  &.checked .checkbox-icon {
+    background: url("/img/box_checked.png") no-repeat center/contain;
 
     &:hover {
-        cursor: pointer;
+      background: url("/img/box_hover_checked.png") no-repeat center/contain;
     }
+  }
 }
