@@ -5,6 +5,7 @@ import { SignupComponent } from './authentication/signup/signup.component';
 import { PanelComponent } from './panel/panel.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ContactsComponent } from './panel/contacts/contacts.component';
+import { SummaryComponent } from './panel/summary/summary.component';
 
 export const routes: Routes = [
   {
@@ -21,14 +22,20 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: 'panel', 
-    component: PanelComponent, 
-    canActivate: [AuthGuard],
+  { path: 'panel',
+    component: PanelComponent,
+    // canActivate: [AuthGuard],
     children: [
+      {
+        path: 'summary',
+        component: SummaryComponent,
+      },
       {
         path: 'contacts',
         component: ContactsComponent,
       }
-    ] },
+    ]
+  },
+
   { path: '**', redirectTo: '/login' }
 ];

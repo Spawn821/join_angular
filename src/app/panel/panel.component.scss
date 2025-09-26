@@ -7,3 +7,10 @@
 .header-wrapper {
   @include displayFlex(column, flex-start, flex-start);
 }
+
+.router-wrapper {
+  @include displayFlex(row, center, center);
+
+  width: calc(100vw - var(--navsidebar-width));
+  height: calc(100vh - 96px);
+}

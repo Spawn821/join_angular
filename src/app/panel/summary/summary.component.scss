@@ -1,0 +1,68 @@
+@use './../../../styles.scss' as *;
+
+.summary-wrapper {
+  @include displayFlex(column, center, felx-start, 48px);
+  @include styleFont(Inter, 8px, 400);
+}
+
+.headline-wrapper {
+  @include displayFlex(row, center, center, 30px);
+
+  > h1 {
+    font-size: 61px;
+    font-weight: 700;
+  }
+
+  .seperator {
+    height: 59px;
+    width: 3px;
+
+    background-color: var(--light-blue);
+  }
+
+  > span {
+    font-size: 27px;
+    font-weight: 40px;
+  }
+}
+
+.info-wrapper {
+
+  @include displayFlex(row, center, center, 30px);
+
+  .to-do-done-container {
+    @include displayFlex(row, center, center, 18px);
+
+    padding: 38px 19px;
+
+    border: 1px solid black;
+
+    div:first-child {
+      font-size: 64px;
+      border: 1px solid black;
+    }
+
+    div:last-child {
+      @include displayFlex(column, center, center);
+
+      :first-child {
+        font-size: 64px;
+      }
+
+      :last-child {
+        font-size: 20px;
+      }
+
+    }
+
+  }
+
+}
+
+.sofia-mueller {
+  font-size: 64px;
+}
+
+span {
+  display: inline-flex;
+}
