@@ -44,14 +44,14 @@ section {
         @include displayFlex(row, center, center, 35px);
 
         span {
-            @include styleFont('Inter', 20px, 400, 120%);
+            @include styleFont('Inter', 20px, 400);
         }
     }
 }
 
 .signup-btn {
     @include main-button(var(--main-button-color), 15px 16px);
-    @include styleFont('Inter', 16px, 700, 120%);
+    @include styleFont('Inter', 16px, 700);
 }
 
 .legals {
@@ -64,7 +64,7 @@ section {
         a {
             text-decoration: none;
             color: var(--icon);
-            @include styleFont('Inter', 16px, 400, 120%);
+            @include styleFont('Inter', 16px, 400);
 
             &:hover {
                 cursor: pointer;
@@ -95,7 +95,7 @@ section {
                 background: none;
                 appearance: none;
                 -webkit-appearance: none;
-                @include styleFont('Inter', 20px, 400, 120%);
+                @include styleFont('Inter', 20px, 400);
             }
             div {
                 @include displayFlex(row, center, center, 0);
@@ -103,7 +103,7 @@ section {
                 height: 24px;
             }
             ::placeholder {
-                @include styleFont('Inter', 20px, 400, 120%);
+                @include styleFont('Inter', 20px, 400);
                 color: var(--border-color);
             }
         }
@@ -119,7 +119,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px white inset !important;
-    @include styleFont('Inter', 20px, 400, 120%);
+    @include styleFont('Inter', 20px, 400);
 }
 
 
@@ -129,7 +129,7 @@ input:-webkit-autofill:active{
 
     .error {
         margin-top: 8px;
-        @include styleFont('Inter', 13px, 400, 120%);
+        @include styleFont('Inter', 13px, 400);
         color: var(--color-red-error);
         position: absolute;
         top: 100%;
@@ -138,7 +138,7 @@ input:-webkit-autofill:active{
 
 .headline {
     h2 {
-        @include styleFont('Inter', 61px, 700, normal);
+        @include styleFont('Inter', 61px, 700);
     }
     @include displayFlex(column, center, center, 16px);
 

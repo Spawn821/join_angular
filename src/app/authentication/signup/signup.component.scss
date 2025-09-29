@@ -7,11 +7,11 @@ fieldset {
   @include displayFlex(row, center, center, 16px);
 
   span {
-    @include styleFont("Inter", 16px, 400, 120%);
+    @include styleFont("Inter", 16px, 400);
     color: var(--icon);
 
     span {
-      @include styleFont("Inter", 16px, 400, 120%);
+      @include styleFont("Inter", 16px, 400);
       color: var(--seperator-color);
     }
   }

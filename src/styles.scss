@@ -27,11 +27,10 @@
   border: none;
 }
 
-@mixin styleFont($family, $size, $weight, $lineHeight: 0) {
+@mixin styleFont($family, $size, $weight) {
   font-family: $family;
   font-size: $size;
   font-weight: $weight;
-  line-height: $lineHeight;
 }
 
 @mixin displayFlex($direction, $justify, $align, $gap: 0) {
@@ -58,7 +57,7 @@ body {
 
 .main-btn {
   @include main-button(var(--main-button-color), 15px 24px);
-  @include styleFont('Inter', 21px, 700, 120%);
+  @include styleFont('Inter', 21px, 700);
 }
 
 /* Pseudo-Klassen */
