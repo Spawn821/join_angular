@@ -35,30 +35,22 @@
   @include displayFlex(column, center, center, 30px);
 }
 
+
+/* Task overview -> Frist row */
+
 .to-do-done-container {
   @include displayFlex(row, center, center, 30px);
 
   > div {
-    @include displayFlex(row, center, center, 18px);
-    background-color: var(--color-white);
-    box-shadow: 0px 0px 4px 0px rgba(0 0 0 / 10%);
-    border-radius: 30px;
     padding: 38px 58px;
 
     div:last-child {
-      @include displayFlex(column, space-between, center);
       width: 63px;
       height: 101px;
+    }
 
-      span:first-child {
-        font-size: 64px;
-        font-weight: 600;
-      }
-
-      span:last-child {
-        font-size: 20px;
-        font-weight: 400;
-      }
+    span:last-child {
+      font-size: 20px;
     }
 
     &:hover {
@@ -84,39 +76,58 @@
   }
 }
 
+
+/* Task overview -> Second row */
+
 .priority-container {
   @include displayFlex(row, center, center, 61px);
 
+  padding: 33px 48px;
+
   width: 100%;
 
-  padding: 28px 48px;
+  > div {
+     div:last-child {
+      width: 52px;
+      height: 96px;
+    }
+  }
+
+  .seperator {
+    height: 102px;
+    width: 2px;
+
+    background-color: var(--color-light-gray);
+  }
+
+  div:nth-child(3) {
+    @include displayFlex(column, center, flex-start, 13px);
+
+    span:first-child {
+      font-size: 21px;
+      font-weight: 700;
+    }
+  }
+
+  span:last-child {
+    font-size: 16px;
+    font-weight: 400;
+  }
 }
 
-.icon-size {
-  width: 69px;
-  height: 69px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-}
+.priority-icon-wrapper {
+  @include displayFlex(row, center, center);
 
-.edit-icon {
-  background-image: url('/img/summary_edit_icon_black.png');
-}
+  width: 60px;
+  height: 60px;
 
-.done-icon {
-  background-image: url('/img/summary_done_icon_black.png');
-}
-
-.urgent-icon {
-  background-image: url('/img/add_task_urgent_icon_white.png');
   background-color: var(--color-red-urgent);
 
   border-radius: 50%;
-
-  width: 34.19px;
-  height: 25.12px;
 }
+
+
+/* Greetings */
 
 .greetings-wrapper {
   span {
@@ -129,4 +140,59 @@
       color: var(--light-blue);
     }
   }
+}
+
+
+/* Generic class */
+
+.icon-size {
+  width: 69px;
+  height: 69px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.d-flex-row-center-gap18px {
+  @include displayFlex(row, center, center, 18px);
+}
+
+
+.d-flex-column-space-center {
+  @include displayFlex(column, space-between, center);
+
+  span:first-child {
+    font-size: 64px;
+    font-weight: 600;
+  }
+
+  span:last-child {
+    font-weight: 400;
+  }
+}
+
+.container-shape {
+  background-color: var(--color-white);
+  box-shadow: 0px 0px 4px 0px rgba(0 0 0 / 10%);
+  border-radius: 30px;
+}
+
+
+/* Icons */
+
+.edit-icon {
+  background-image: url('/img/summary_edit_icon_black.png');
+}
+
+.done-icon {
+  background-image: url('/img/summary_done_icon_black.png');
+}
+
+.urgent-icon {
+  background-image: url('/img/add_task_urgent_icon_white.png');
+
+  border-radius: 50%;
+
+  width: 34.19px;
+  height: 25.12px;
 }
