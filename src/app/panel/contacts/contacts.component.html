@@ -5,10 +5,11 @@
     </button>
 
     <div class="contact-list">
-      @for (i of [].constructor(26); let letterIndex = $index; track letterIndex) {
-        <span>{{ (letterIndex + 10).toString(36) }}</span>
-        <div class="separator"><div></div></div>
-
+      @for (
+        i of [].constructor(26);
+        let letterIndex = $index;
+        track letterIndex
+      ) {
         @for (
           contact of contacts;
           let contactIndex = $index;
@@ -17,6 +18,8 @@
           @if (
             contact.charAt(0).toLowerCase() == (letterIndex + 10).toString(36)
           ) {
+            <span>{{ (letterIndex + 10).toString(36).toUpperCase() }}</span>
+            <div class="separator"><div></div></div>
             <span>{{ contact }}</span>
           }
         }
