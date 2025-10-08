@@ -6,6 +6,7 @@ import { PanelComponent } from './panel/panel.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ContactsComponent } from './panel/contacts/contacts.component';
 import { SummaryComponent } from './panel/summary/summary.component';
+import { SingleContactComponent } from './panel/contacts/single-contact/single-contact.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,12 @@ export const routes: Routes = [
       {
         path: 'contacts',
         component: ContactsComponent,
+    children: [
+      {
+        path: 'contact',
+        component: SingleContactComponent,
+      },
+    ],
       }
     ]
   },
