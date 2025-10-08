@@ -1,16 +1,37 @@
 <section>
-    <article class="contacts">
-        <button type="submit" class="main-btn hover-main-btn active-main-btn" >Add new contact <img src="/img/person_add.png" alt=""></button>
-    </article>
+  <article class="contacts">
+    <button type="submit" class="main-btn hover-main-btn active-main-btn">
+      Add new contact <img src="/img/person_add.png" alt="" />
+    </button>
 
-    <article class="contact-detailview">
-        <div>
-            <h2>Contacts</h2>
-            <span></span>
-            <em>Better with a team</em>
-        </div>
-        <div class="details">
-            <router-outlet></router-outlet>
-        </div>
-    </article>
+    <div class="contact-list">
+      @for (i of [].constructor(26); let letterIndex = $index; track letterIndex) {
+        <span>{{ (letterIndex + 10).toString(36) }}</span>
+        <div class="separator"><div></div></div>
+
+        @for (
+          contact of contacts;
+          let contactIndex = $index;
+          track contactIndex
+        ) {
+          @if (
+            contact.charAt(0).toLowerCase() == (letterIndex + 10).toString(36)
+          ) {
+            <span>{{ contact }}</span>
+          }
+        }
+      }
+    </div>
+  </article>
+
+  <article class="contact-detailview">
+    <div>
+      <h2>Contacts</h2>
+      <span></span>
+      <em>Better with a team</em>
+    </div>
+    <div class="details">
+      <router-outlet></router-outlet>
+    </div>
+  </article>
 </section>

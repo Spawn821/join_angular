@@ -10,4 +10,13 @@ import { RouterOutlet } from '@angular/router';
 })
 export class ContactsComponent {
 
+  contacts = ['Beata', 'Harald'];
+
+  test(contact:any, $index:number) {
+    let number = contact.charAt(0).toLowerCase() == ($index+10).toString(36);
+    console.log(contact.charAt(0).toLowerCase(), ($index+10).toString(36));
+    
+    return number;
+  }
+
 }
