@@ -1,5 +1,10 @@
 @use "./../../../../styles.scss" as *;
 
+section {
+  padding-top: calc(311px - 206px - 73px);
+  @include displayFlex(column, flex-start, flex-start, 21px);
+}
+
 .header {
   @include displayFlex(row, center, center, 54px);
 }
@@ -12,14 +17,35 @@
   }
 
   .edit-delete-contact {
-    @include displayFlex(row, center, center, 0);
+    @include displayFlex(row, center, center, 24px);
 
     div {
       @include displayFlex(row, center, center, 8px);
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     span {
       @include styleFont("Inter", 16px, 400);
+    }
+  }
+}
+
+h3 {
+  @include styleFont("Inter", 20px, 400);
+  padding: (59px / 2) 0;
+}
+
+.contact-information {
+  @include displayFlex(column, flex-start, flex-start, 22px);
+
+  div {
+    @include displayFlex(column, flex-start, flex-start, 15px);
+    @include styleFont("Inter", 16px, 400);
+
+    h4 {
+      font-weight: 700;
     }
   }
 }
