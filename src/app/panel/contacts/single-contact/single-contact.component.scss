@@ -1,0 +1,25 @@
+@use "./../../../../styles.scss" as *;
+
+.header {
+  @include displayFlex(row, center, center, 54px);
+}
+
+.name {
+  @include displayFlex(column, center, flex-start, 8px);
+
+  span {
+    @include styleFont("Inter", 47px, 500);
+  }
+
+  .edit-delete-contact {
+    @include displayFlex(row, center, center, 0);
+
+    div {
+      @include displayFlex(row, center, center, 8px);
+    }
+
+    span {
+      @include styleFont("Inter", 16px, 400);
+    }
+  }
+}
