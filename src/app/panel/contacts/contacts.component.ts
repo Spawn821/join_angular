@@ -10,13 +10,15 @@ import { RouterOutlet } from '@angular/router';
 })
 export class ContactsComponent {
 
-  contacts = ['Beata', 'Harald', 'Axel', 'Doro'];
+  currentLetter:string = 'b';
+  contacts = ['Beata', 'Bertram', 'Harald', 'Axel', 'Doro', 'Tatjana'];
 
-  test(contact:any, $index:number) {
-    let number = contact.charAt(0).toLowerCase() == ($index+10).toString(36);
-    console.log(contact.charAt(0).toLowerCase(), ($index+10).toString(36));
-    
-    return number;
+  checkSameLetter(letterIndex:number) {
+    return this.currentLetter == (letterIndex + 10).toString(36);
+  }
+
+  setCurrentLetter(letterIndex:number) {
+    this.currentLetter = (letterIndex + 10).toString(36);
   }
 
 }

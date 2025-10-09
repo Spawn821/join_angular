@@ -51,8 +51,9 @@ section {
 }
 
 .contact-list {
-  @include displayFlex(column, center, center);
+  @include displayFlex(column, center, flex-start);
   width: 100%;
+  width: 352px;
 
   .separator {
     width: 100%;
@@ -61,5 +62,33 @@ section {
     div {
       border: 1px solid var(--border-color);
     }
+  }
+
+  .letter {
+    @include styleFont("Inter", 20px, 400);
+    padding: 17px 36px;
+  }
+
+  .single-contacts {
+    .contact-email {
+      @include displayFlex(column, flex-start, flex-start, 5px);
+
+      .single-contact-email {
+        font-size: 16px;
+        color: #007cee;
+      }
+    }
+
+    .initials-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background-color: green;
+      @include displayFlex(row, center, center, unset);
+    }
+
+    padding: 15px 24px;
+    @include displayFlex(row, flex-start, center, 35px);
+    @include styleFont("Inter", 20px, 400);
   }
 }
