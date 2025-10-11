@@ -5,39 +5,56 @@
     </button>
 
     <div class="contact-list">
-      @for (
-        i of [].constructor(26);
-        let letterIndex = $index;
-        track letterIndex
-      ) {
+      @for (contact of contacts$ | async; track $index) {
+        <div class="single-contacts">
+          <div class="initials-logo">
+            <span>AA</span>
+          </div>
+          <div class="contact-email">
+            <span>{{ contact.name }}</span>
+            <span class="single-contact-email">{{ contact.email }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- <div class="contact-list">
+      @if (false) {
         @for (
-          contact of contacts;
-          let contactIndex = $index;
-          track contactIndex
+          i of [].constructor(26);
+          let letterIndex = $index;
+          track letterIndex
         ) {
-          @if (
-            contact.charAt(0).toLowerCase() == (letterIndex + 10).toString(36)
+          @for (
+            contact of contacts$ | async;
+            let contactIndex = $index;
+            track contactIndex
           ) {
-            @if (!checkSameLetter(letterIndex)) {
-              <span class="letter">{{
-                (letterIndex + 10).toString(36).toUpperCase()
-              }}</span>
-              <div class="separator"><div></div></div>
-              {{ setCurrentLetter(letterIndex) }}
-            }
-            <div class="single-contacts">
+            @if (
+              contact.name.charAt(0).toLowerCase() ==
+              (letterIndex + 10).toString(36)
+            ) {
+              @if (!checkSameLetter(letterIndex)) {
+                <span class="letter">{{
+                  (letterIndex + 10).toString(36).toUpperCase()
+                }}</span>
+                <div class="separator"><div></div></div>
+                {{ setCurrentLetter(letterIndex) }}
+              }
+              <div class="single-contacts">
                 <div class="initials-logo">
-                    <span>AA</span>
+                  <span>AA</span>
                 </div>
                 <div class="contact-email">
-                    <span>{{ contact }}</span>
-                    <span class="single-contact-email">email(at)email.de</span>
+                  <span>{{ contact.name }}</span>
+                  <span class="single-contact-email">{{ contact.email }}</span>
                 </div>
-            </div>
+              </div>
+            }
           }
         }
       }
-    </div>
+    </div> -->
   </article>
 
   <article class="contact-detailview">

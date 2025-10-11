@@ -3,3 +3,8 @@ export interface UserData {
     email: string,
     uid: string
 }
+
+export interface contacts {
+    name: string,
+    email: string
+}
