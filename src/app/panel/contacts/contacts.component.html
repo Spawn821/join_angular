@@ -6,6 +6,11 @@
 
     <div class="contact-list">
       @for (contact of contacts$ | async; track $index) {
+        @if (contact.firstContactperLetter) {
+          <span class="letter">{{ contact.name.charAt(0) }}</span>
+          <div class="separator"><div></div></div>
+        }
+
         <div class="single-contacts">
           <div class="initials-logo">
             <span>AA</span>

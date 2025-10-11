@@ -1,20 +1,27 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, doc, Firestore, onSnapshot, orderBy, query, setDoc } from '@angular/fire/firestore';
+import {
+  collection,
+  doc,
+  Firestore,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+} from '@angular/fire/firestore';
 import { UserData } from '../../interfaces/user-data';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FirestoreService {
-
   firestore = inject(Firestore);
 
-  constructor() { }
+  constructor() {}
 
-  unsubscribe:any;
+  unsubscribe: any;
 
-  getCollection(collectionName:string) {
+  getCollection(collectionName: string) {
     return collection(this.firestore, collectionName);
   }
 
@@ -22,33 +29,75 @@ export class FirestoreService {
     await setDoc(doc(this.getCollection('users'), userData.uid), {
       name: userData.name,
       email: userData.email,
-      uid: userData.uid
+      uid: userData.uid,
     });
   }
 
-  // getData() {
-  //   const q = query(collection(this.firestore, `contacts/${'DO7MD4HsU3RzCGbZyQDReZLrQFn2'}/contacts`));
-  //   this.unsubscribe = onSnapshot(q, (querySnapshot) => {
-  //     let cities:any = [];
-  //     querySnapshot.forEach((doc) => {
-  //         cities.push(doc.data()['name']);
-  //     });
-  //     console.log("Current cities in CA: ", cities.join(", "));
+  // getContacts(): Observable<any[]> {
+  //   const q = query(
+  //     collection(
+  //       this.firestore,
+  //       `contacts/DO7MD4HsU3RzCGbZyQDReZLrQFn2/contacts`,
+  //     ),
+  //     orderBy('name'),
+  //   );
+  //   return new Observable((observer) => {
+  //     const unsubscribe = onSnapshot(
+  //       q,
+  //       (querySnapshot) => {
+  //         const contacts = querySnapshot.docs.map((doc) => ({
+  //           name: doc.data()['name'],
+  //           email: doc.data()['email'],
+  //           firstContactperLetter: this.isFirstContactPerLetter(
+  //             doc.data()['name'],
+  //           ),
+  //         }));
+  //         observer.next(contacts);
+  //       },
+  //       (error) => observer.error(error),
+  //     );
+  //     return { unsubscribe };
   //   });
   // }
 
+  private createContactsQuery() {
+    return query(
+      collection(
+        this.firestore,
+        `contacts/DO7MD4HsU3RzCGbZyQDReZLrQFn2/contacts`,
+      ),
+      orderBy('name'),
+    );
+  }
+
+  private markFirstContactPerLetter(docs: any[]) {
+    const seenLetters = new Set<string>();
+    return docs.map((doc) => {
+      const name = doc.data()['name'];
+      const firstLetter = name[0].toUpperCase();
+      const firstContactperLetter = !seenLetters.has(firstLetter);
+      seenLetters.add(firstLetter);
+
+      return {
+        name,
+        email: doc.data()['email'],
+        firstContactperLetter,
+      };
+    });
+  }
+
   getContacts(): Observable<any[]> {
-    const q = query(collection(this.firestore, `contacts/DO7MD4HsU3RzCGbZyQDReZLrQFn2/contacts`), orderBy('name'));
+    const q = this.createContactsQuery();
 
     return new Observable((observer) => {
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const contacts = querySnapshot.docs.map((doc) => ({
-          name: doc.data()['name'],
-          email: doc.data()['email'],
-        }));
-
-        observer.next(contacts);
-      }, (error) => observer.error(error));
+      const unsubscribe = onSnapshot(
+        q,
+        (querySnapshot) => {
+          const contacts = this.markFirstContactPerLetter(querySnapshot.docs);
+          observer.next(contacts);
+        },
+        (error) => observer.error(error),
+      );
 
       return { unsubscribe };
     });

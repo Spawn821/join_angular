@@ -13,9 +13,6 @@ import { contacts } from '../../interfaces/user-data';
 })
 export class ContactsComponent {
   firestoreService = inject(FirestoreService);
-
-  currentLetter: string = '';
-  contacts = ['Beata', 'Bertram', 'Harald', 'Axel', 'Doro', 'Tatjana'];
   contacts$!: Observable<contacts[]>;
 
   ngOnInit() {
@@ -24,13 +21,5 @@ export class ContactsComponent {
     this.contacts$.subscribe((name) => {
       console.log(name);
     });
-  }
-
-  checkSameLetter(letterIndex: number) {
-    return this.currentLetter == (letterIndex + 10).toString(36);
-  }
-
-  setCurrentLetter(letterIndex: number) {
-    this.currentLetter = (letterIndex + 10).toString(36);
   }
 }
