@@ -1,36 +1,43 @@
 <section>
-  <article class="header">
-    <div class="initials">
-      <img src="/img/Frame 79.png" alt="" />
+  @if (contact) {
+    <div class="headline">
+      <h2>Contacts</h2>
+      <span></span>
+      <em>Better with a team</em>
     </div>
-    <div class="name">
-      <span>Tatjana Wolf</span>
+    <article class="header">
+      <div class="initials">
+        <img src="/img/Frame 79.png" alt="" />
+      </div>
+      <div class="name">
+        <span>{{ contact.name }}</span>
 
-      <div class="edit-delete-contact">
-        <div>
-          <img src="/img/edit.png" alt="edit" />
-          <span>Edit</span>
-        </div>
+        <div class="edit-delete-contact">
+          <div>
+            <img src="/img/edit.png" alt="edit" />
+            <span>Edit</span>
+          </div>
 
-        <div>
-          <img src="/img/delete.png" alt="edit" />
-          <span>Delete</span>
+          <div>
+            <img src="/img/delete.png" alt="edit" />
+            <span>Delete</span>
+          </div>
         </div>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <h3>Contact Information</h3>
+    <h3>Contact Information</h3>
 
-  <article class="contact-information">
-    <div>
+    <article class="contact-information">
+      <div>
         <h4>Email</h4>
-        <span>wolf(at)gmail.com</span>
-    </div>
+        <span>{{ contact.email }}</span>
+      </div>
 
-    <div>
+      <div>
         <h4>Phone</h4>
         <span>+49 2222 222 22 2</span>
-    </div>
-  </article>
+      </div>
+    </article>
+  }
 </section>

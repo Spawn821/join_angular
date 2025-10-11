@@ -5,6 +5,24 @@ section {
   @include displayFlex(column, flex-start, flex-start, 21px);
 }
 
+.headline {
+  @include displayFlex(row, flex-start, center, 30px);
+
+  h2 {
+    @include styleFont("Inter", 61px, 700);
+  }
+
+  span {
+    border: 1px solid var(--light-blue);
+    align-self: stretch;
+  }
+
+  em {
+    @include styleFont("Inter", 27px, 400);
+    font-style: normal;
+  }
+}
+
 .header {
   @include displayFlex(row, center, center, 54px);
 }
