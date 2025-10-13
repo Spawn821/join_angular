@@ -54,6 +54,7 @@ export class FirestoreService {
       return {
         name,
         email: doc.data()['email'],
+        color: doc.data()['color'],
         firstContactperLetter,
       };
     });
@@ -72,7 +73,6 @@ export class FirestoreService {
         (error) => observer.error(error),
       );
       observer.add(() => unsubscribe())
-      // return { unsubscribe };
     });
   }
 }

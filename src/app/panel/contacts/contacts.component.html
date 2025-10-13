@@ -12,8 +12,8 @@
         }
 
         <div class="single-contacts" (click)="selectContact(contact)">
-          <div class="initials-logo">
-            <span>AA</span>
+          <div class="initials-logo" [style.background-color]="'#' + contact.color">
+            <span>{{ getInitialsContact(contact) }}</span>
           </div>
           <div class="contact-email">
             <span>{{ contact.name }}</span>
@@ -25,11 +25,6 @@
   </article>
 
   <article class="contact-detailview">
-    <!-- <div>
-      <h2>Contacts</h2>
-      <span></span>
-      <em>Better with a team</em>
-    </div> -->
     <div class="details">
       <app-single-contact [contact]="selectedContact"></app-single-contact>
     </div>

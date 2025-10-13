@@ -7,5 +7,6 @@ export interface UserData {
 export interface contacts {
     name: string,
     email: string,
-    firstContactperLetter: boolean
+    firstContactperLetter: boolean,
+    color: string
 }
