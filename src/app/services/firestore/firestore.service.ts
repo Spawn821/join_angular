@@ -19,8 +19,6 @@ export class FirestoreService {
 
   constructor() {}
 
-  // unsubscribe: any;
-
   getCollection(collectionName: string) {
     return collection(this.firestore, collectionName);
   }
@@ -43,36 +41,43 @@ export class FirestoreService {
     );
   }
 
-  private markFirstContactPerLetter(docs: any[]) {
+  private markFirstContactPerLetter(docs: any[]): boolean[] {
     const seenLetters = new Set<string>();
     return docs.map((doc) => {
-      const name = doc.data()['name'];
-      const firstLetter = name[0].toUpperCase();
-      const firstContactperLetter = !seenLetters.has(firstLetter);
+      const name = doc.data()['name'] ?? '';
+      const firstLetter = name[0]?.toUpperCase() ?? '';
+      const firstContactPerLetter = !seenLetters.has(firstLetter);
       seenLetters.add(firstLetter);
-
-      return {
-        name,
-        email: doc.data()['email'],
-        color: doc.data()['color'],
-        firstContactperLetter,
-      };
+      return firstContactPerLetter;
     });
   }
 
-  getContacts(): Observable<any[]> {
+ getContacts(): Observable<any[]> {
     const q = this.createContactsQuery();
 
     return new Observable((observer) => {
       const unsubscribe = onSnapshot(
         q,
         (querySnapshot) => {
-          const contacts = this.markFirstContactPerLetter(querySnapshot.docs);
+          const firstContactPerLetter = this.markFirstContactPerLetter(querySnapshot.docs);
+          const contacts = querySnapshot.docs.map((doc, i) =>
+            this.getContactData(doc, firstContactPerLetter[i]),
+          );
           observer.next(contacts);
         },
         (error) => observer.error(error),
       );
-      observer.add(() => unsubscribe())
+      observer.add(() => unsubscribe());
     });
+  }
+
+
+  getContactData(doc: any, firstContactperLetter: boolean) {
+    return {
+      name: doc.data()['name'],
+      email: doc.data()['email'],
+      color: doc.data()['color'],
+      firstContactperLetter,
+    };
   }
 }

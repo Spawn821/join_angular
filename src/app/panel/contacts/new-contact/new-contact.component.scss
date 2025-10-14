@@ -1,0 +1,9 @@
+@use './../../../../styles.scss' as *;
+
+section {
+    .description {
+        background-color: var(--main-color);
+        @include displayFlex(column, center, flex-start, 0);
+        padding: 66px 46px;
+    }
+}

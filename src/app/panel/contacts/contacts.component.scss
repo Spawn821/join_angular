@@ -27,27 +27,6 @@ section {
   padding-left: calc(743px - var(--navsidebar-width) - 453px);
   padding-top: calc(206px - var(--header-height));
   flex: 1;
-  // div {
-  //   @include displayFlex(row, flex-start, center, 30px);
-
-  //   h2 {
-  //     @include styleFont("Inter", 61px, 700);
-  //   }
-
-  //   span {
-  //     border: 1px solid var(--light-blue);
-  //     align-self: stretch;
-  //   }
-
-  //   em {
-  //     @include styleFont("Inter", 27px, 400);
-  //     font-style: normal;
-  //   }
-  // }
-
-  // .details {
-  //   gap: 0;
-  // }
 }
 
 .contact-list {
@@ -94,5 +73,19 @@ section {
     padding: 15px 24px;
     @include displayFlex(row, flex-start, center, 35px);
     @include styleFont("Inter", 20px, 400);
+  }
+}
+
+.add-new-contact {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  @include displayFlex(row, center, center, 0);
+
+  div {
+    background-color: white;
   }
 }

@@ -1,8 +1,20 @@
 <section>
   <article class="contacts">
-    <button type="submit" class="main-btn hover-main-btn active-main-btn">
+    <button
+      (click)="addNewContact()"
+      type="submit"
+      class="main-btn hover-main-btn active-main-btn"
+    >
       Add new contact <img src="/img/person_add.png" alt="" />
     </button>
+
+    @if (newContactWindow) {
+      <article class="add-new-contact">
+        <div>
+          <app-new-contact></app-new-contact>
+        </div>
+      </article>
+    }
 
     <div class="contact-list">
       @for (contact of contacts$ | async; track $index) {
@@ -12,7 +24,10 @@
         }
 
         <div class="single-contacts" (click)="selectContact(contact)">
-          <div class="initials-logo" [style.background-color]="'#' + contact.color">
+          <div
+            class="initials-logo"
+            [style.background-color]="'#' + contact.color"
+          >
             <span>{{ getInitialsContact(contact) }}</span>
           </div>
           <div class="contact-email">

@@ -5,15 +5,18 @@ import { Observable, Subscriber } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { contacts } from '../../interfaces/user-data';
 import { SingleContactComponent } from './single-contact/single-contact.component';
+import { NewContactComponent } from "./new-contact/new-contact.component";
+import { ContactService } from '../../services/contacts/contact.service';
 
 @Component({
   selector: 'app-contacts',
-  imports: [AsyncPipe, SingleContactComponent ],
+  imports: [AsyncPipe, SingleContactComponent, NewContactComponent],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
 })
 export class ContactsComponent {
   firestoreService = inject(FirestoreService);
+  contactService = inject(ContactService);
   contacts$?: Observable<contacts[]>;
   selectedContact?: contacts;
 
@@ -54,8 +57,11 @@ export class ContactsComponent {
     return firstLetter + secondLetter;
   }
 
-  // getContactColor(contact:contacts) {
-  //   let contactColor = this.contactColors[Math.floor(Math.random()*this.contactColors.length)];
-  //   return contactColor
-  // }
+  get newContactWindow() {
+    return this.contactService.newContactWindow
+  }
+
+  addNewContact() {
+    this.contactService.newContactWindow = !this.contactService.newContactWindow;
+  }
 }
