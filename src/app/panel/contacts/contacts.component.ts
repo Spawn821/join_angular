@@ -60,8 +60,4 @@ export class ContactsComponent {
   get newContactWindow() {
     return this.contactService.newContactWindow
   }
-
-  addNewContact() {
-    this.contactService.newContactWindow = !this.contactService.newContactWindow;
-  }
 }

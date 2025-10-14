@@ -1,11 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import {
-  addDoc,
-  collection,
-  doc,
-  Firestore,
-  setDoc,
-} from '@angular/fire/firestore';
+import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 import { FirestoreService } from '../firestore/firestore.service';
 
 @Injectable({
@@ -19,7 +13,12 @@ export class ContactService {
 
   constructor() {}
 
-  async addNewContact(contactData:any) {
+  addNewContactWindow() {
+    this.newContactWindow =
+      !this.newContactWindow;
+  }
+
+  async addNewContact(contactData: any) {
     await addDoc(
       collection(
         this.firestoreService.getCollection('contacts'),
@@ -30,7 +29,7 @@ export class ContactService {
         name: contactData.name,
         email: contactData.email,
         color: '00BEE8',
-        phoneNumber: contactData.phoneNumber
+        phoneNumber: contactData.phoneNumber,
       },
     );
   }
