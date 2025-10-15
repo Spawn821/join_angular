@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';
 import { FirestoreService } from '../firestore/firestore.service';
+import { contacts, newContact } from '../../interfaces/user-data';
 
 @Injectable({
   providedIn: 'root',
@@ -34,22 +35,25 @@ export class ContactService {
     this.newContactWindow = !this.newContactWindow;
   }
 
-  async addNewContact(contactData: any) {
+  async addNewContact(newContact: newContact) {
     await addDoc(
       collection(
         this.firestoreService.getCollection('contacts'),
         'DO7MD4HsU3RzCGbZyQDReZLrQFn2',
         'contacts',
-      ),
-      {
-        name: contactData.name,
-        email: contactData.email,
-        color: this.getColor(),
-        phoneNumber: contactData.phoneNumber,
-        initials: this.getInitials(contactData.name),
-      },
+      ), this.getNewContact(newContact)
     );
   }
+
+getNewContact(newContact: newContact) {
+  return {
+    name: newContact.name,
+    email: newContact.email,
+    phoneNumber: newContact.phoneNumber,
+    color: this.getColor(),
+    initials: this.getInitials(newContact.name),
+  };
+}
 
   getColor() {
     let color =
@@ -57,7 +61,7 @@ export class ContactService {
     return color;
   }
 
-  getInitials(contact:string) {
+  getInitials(contact: string) {
     let splitContact = contact.split(' ');
     let firstLetter = splitContact[0].charAt(0);
     let secondLetter = splitContact[1].charAt(0);

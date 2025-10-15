@@ -12,3 +12,9 @@ export interface contacts {
     initials: string,
     phoneNumber: number
 }
+
+export interface newContact {
+    name: string,
+    email: string,
+    phoneNumber: number
+}
