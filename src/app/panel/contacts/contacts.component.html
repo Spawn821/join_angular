@@ -26,9 +26,9 @@
         <div class="single-contacts" (click)="selectContact(contact)">
           <div
             class="initials-logo"
-            [style.background-color]="'#' + contact.color"
+            [style.background-color]="contact.color"
           >
-            <span>{{ getInitialsContact(contact) }}</span>
+            <span>{{ contact.initials }}</span>
           </div>
           <div class="contact-email">
             <span>{{ contact.name }}</span>

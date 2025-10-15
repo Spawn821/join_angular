@@ -8,5 +8,7 @@ export interface contacts {
     name: string,
     email: string,
     firstContactperLetter: boolean,
-    color: string
+    color: string,
+    initials: string,
+    phoneNumber: number
 }

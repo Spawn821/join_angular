@@ -77,6 +77,8 @@ export class FirestoreService {
       name: doc.data()['name'],
       email: doc.data()['email'],
       color: doc.data()['color'],
+      initials: doc.data()['initials'],
+      phoneNumber: doc.data()['phoneNumber'],
       firstContactperLetter,
     };
   }

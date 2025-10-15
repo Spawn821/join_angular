@@ -6,8 +6,10 @@
       <em>Better with a team</em>
     </div>
     <article class="header">
-      <div class="initials">
-        <img src="/img/Frame 79.png" alt="" />
+      <div class="initials" [ngStyle]="{ 'background-color': contact.color }">
+        <div>
+          <span>{{ contact.initials }}</span>
+        </div>
       </div>
       <div class="name">
         <span>{{ contact.name }}</span>
@@ -36,7 +38,7 @@
 
       <div>
         <h4>Phone</h4>
-        <span>+49 2222 222 22 2</span>
+        <span>{{ contact.phoneNumber }}</span>
       </div>
     </article>
   }

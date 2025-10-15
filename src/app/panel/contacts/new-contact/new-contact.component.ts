@@ -17,7 +17,6 @@ export class NewContactComponent {
 
   onSubmit() {
     let contactData = this.getContactData();
-
     this.contactService.addNewContact(contactData);
     this.contactService.addNewContactWindow();
   }
