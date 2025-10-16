@@ -13,6 +13,9 @@
   </article>
 
   <article class="formsite">
+    <article class="close-btn" (click)="closeNewContact()">
+      <img src="/img/close.png" alt="close" />
+    </article>
     <form [formGroup]="contactForm" class="formgroup" (ngSubmit)="onSubmit()">
       <div class="inputs">
         <div class="input-with-error">
@@ -68,8 +71,15 @@
       </div>
 
       <div class="buttons">
+        <button
+          type="button"
+          class="main-btn secondary-btn"
+          (click)="formDelete()"
+        >
+          Delete
+        </button>
         <button type="submit" class="main-btn hover-main-btn active-main-btn">
-          Login
+          Save
         </button>
       </div>
     </form>

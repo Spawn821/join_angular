@@ -1,5 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ContactService } from '../../../services/contacts/contact.service';
 import { CommonModule } from '@angular/common';
 
@@ -10,7 +16,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './new-contact.component.scss',
 })
 export class NewContactComponent {
- contactForm!: FormGroup;
+  contactForm!: FormGroup;
   loginError = false;
 
   private fb = inject(FormBuilder);
@@ -18,15 +24,13 @@ export class NewContactComponent {
 
   ngOnInit(): void {
     this.contactForm = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', Validators.required]
+      phoneNumber: ['', Validators.required],
     });
   }
 
   onSubmit(): void {
-    // console.log(this.contactForm.valid, this.fb.group);
-    
     if (this.contactForm.valid) {
       this.contactService.addNewContact(this.contactForm.value);
       this.contactService.addNewContactWindow();
@@ -41,11 +45,11 @@ export class NewContactComponent {
     this.loginError = false;
   }
 
-  // getContactData() {
-  //   return {
-  //     name: this.name,
-  //     email: this.email,
-  //     phoneNumber: this.phoneNumber,
-  //   };
-  // }
+  formDelete() {
+    this.contactForm.reset();
+  }
+
+  closeNewContact() {
+    this.contactService.addNewContactWindow();
+  }
 }
