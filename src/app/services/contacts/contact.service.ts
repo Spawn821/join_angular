@@ -41,19 +41,20 @@ export class ContactService {
         this.firestoreService.getCollection('contacts'),
         'DO7MD4HsU3RzCGbZyQDReZLrQFn2',
         'contacts',
-      ), this.getNewContact(newContact)
+      ),
+      this.getNewContact(newContact),
     );
   }
 
-getNewContact(newContact: newContact) {
-  return {
-    name: newContact.name,
-    email: newContact.email,
-    phoneNumber: newContact.phoneNumber,
-    color: this.getColor(),
-    initials: this.getInitials(newContact.name),
-  };
-}
+  getNewContact(newContact: newContact) {
+    return {
+      name: newContact.name,
+      email: newContact.email,
+      phoneNumber: newContact.phoneNumber,
+      color: this.getColor(),
+      initials: this.getInitials(newContact.name),
+    };
+  }
 
   getColor() {
     let color =

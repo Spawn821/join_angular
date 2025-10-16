@@ -10,11 +10,11 @@ export interface contacts {
     firstContactperLetter: boolean,
     color: string,
     initials: string,
-    phoneNumber: number
+    phoneNumber: string
 }
 
 export interface newContact {
     name: string,
     email: string,
-    phoneNumber: number
+    phoneNumber: string
 }

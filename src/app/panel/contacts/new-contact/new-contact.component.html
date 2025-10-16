@@ -1,44 +1,77 @@
 <section>
-  <article class="description">
+  <article class="leftside-addcontact">
     <div class="logo">
       <img src="/img/logo_contacts.png" alt="" />
     </div>
-    <div>
-      <p>Edit Contacts</p>
+    <div class="description">
+      <div class="text">
+        <p>Add Contact</p>
+        <p class="small-text">Tasks are better with a team!</p>
+      </div>
       <span></span>
     </div>
   </article>
 
   <article class="formsite">
-    <form (ngSubmit)="onSubmit()">
-      <label for="username">Username:</label>
-      <input
-        type="text"
-        id="username"
-        [(ngModel)]="name"
-        name="username"
-        required
-      />
+    <form [formGroup]="contactForm" class="formgroup" (ngSubmit)="onSubmit()">
+      <div class="inputs">
+        <div class="input-with-error">
+          <label
+            for="username"
+            [ngClass]="loginError ? 'border-error' : 'border-success'"
+          >
+            <div>
+              <img src="/img/person.png" alt="User" />
+            </div>
+            <input
+              type="text"
+              id="username"
+              formControlName="name"
+              placeholder="Username"
+            />
+          </label>
+        </div>
 
-      <label for="password">email</label>
-      <input
-        type="email"
-        id="email"
-        [(ngModel)]="email"
-        name="email"
-        required
-      />
+        <div class="input-with-error">
+          <label
+            for="email"
+            [ngClass]="loginError ? 'border-error' : 'border-success'"
+          >
+            <div>
+              <img src="/img/mail.png" alt="Mail" />
+            </div>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              placeholder="Email"
+            />
+          </label>
+        </div>
 
-      <label for="password">Phone</label>
-      <input
-        type="phoneNumber"
-        id="phoneNumber"
-        [(ngModel)]="phoneNumber"
-        name="phoneNumber"
-        required
-      />
+        <div class="input-with-error">
+          <label
+            for="phoneNumber"
+            [ngClass]="loginError ? 'border-error' : 'border-success'"
+          >
+            <div>
+              <img src="/img/call.png" alt="Phone" />
+            </div>
+            <input
+              type="tel"
+              id="phoneNumber"
+              formControlName="phoneNumber"
+              placeholder="Phone"
+            />
+          </label>
+        </div>
+      </div>
 
-      <button type="submit">Login</button>
+      <div class="buttons">
+        <button type="submit" class="main-btn hover-main-btn active-main-btn">
+          Login
+        </button>
+      </div>
     </form>
   </article>
 </section>

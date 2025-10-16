@@ -3,8 +3,6 @@
 section {
     width: 100%;
     @include displayFlex(column, space-between, center, 0);
-    background-color: var(--background-color);
-    padding: 60px 0;
 }
 
 .main-logo {

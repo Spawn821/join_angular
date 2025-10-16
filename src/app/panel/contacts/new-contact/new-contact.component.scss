@@ -1,9 +1,37 @@
-@use './../../../../styles.scss' as *;
+@use "./../../../../styles.scss" as *;
+@use "./../.././../authentication/authentication.component.scss";
 
 section {
+  @include displayFlex(row, center, center, 0);
+
+  .leftside-addcontact {
+    background-color: var(--main-color);
+    @include displayFlex(column, center, flex-start, 0);
+    padding: 66px 46px;
+
     .description {
-        background-color: var(--main-color);
-        @include displayFlex(column, center, flex-start, 0);
-        padding: 66px 46px;
+      color: #ffff;
+      @include displayFlex(column, center, flex-start, 8px);
+
+      .text {
+        @include styleFont("Inter", 61px, 700);
+        @include displayFlex(column, center, flex-start, 16px);
+      }
+
+      .small-text {
+        @include styleFont("Inter", 27px, 400);
+      }
+
+      span {
+        border: 3px solid var(--light-blue);
+        width: 90px;
+      }
     }
+  }
+}
+
+.formsite {
+  form {
+    @include displayFlex(column, center, center, 0);
+  }
 }
