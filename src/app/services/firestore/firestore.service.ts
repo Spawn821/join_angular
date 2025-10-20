@@ -75,6 +75,7 @@ export class FirestoreService {
   getContactData(doc: any, firstContactperLetter: boolean) {
     return {
       name: doc.data()['name'],
+      id: doc.id,
       email: doc.data()['email'],
       color: doc.data()['color'],
       initials: doc.data()['initials'],

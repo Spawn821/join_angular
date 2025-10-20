@@ -5,6 +5,7 @@ export interface UserData {
 }
 
 export interface contacts {
+    id?: string,
     name: string,
     email: string,
     firstContactperLetter: boolean,

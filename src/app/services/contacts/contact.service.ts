@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, collection, Firestore } from '@angular/fire/firestore';
+import { addDoc, collection, Firestore, deleteDoc, doc, updateDoc } from '@angular/fire/firestore';
 import { FirestoreService } from '../firestore/firestore.service';
 import { contacts, newContact } from '../../interfaces/user-data';
 
@@ -29,14 +29,14 @@ export class ContactService {
     '#FFBB2B',
   ];
 
-  constructor() {}
+  constructor() { }
 
   addNewContactWindow() {
     this.newContactWindow = !this.newContactWindow;
   }
 
   async addNewContact(newContact: newContact) {
-    await addDoc(
+    const docRef = await addDoc(
       collection(
         this.firestoreService.getCollection('contacts'),
         'DO7MD4HsU3RzCGbZyQDReZLrQFn2',
@@ -67,5 +67,17 @@ export class ContactService {
     let firstLetter = splitContact[0].charAt(0);
     let secondLetter = splitContact[1].charAt(0);
     return firstLetter + secondLetter;
+  }
+
+  async deleteContact(contactId: string) {
+    const docRef = doc(
+      collection(
+        this.firestoreService.getCollection('contacts'),
+        'DO7MD4HsU3RzCGbZyQDReZLrQFn2',
+        'contacts'
+      ),
+      contactId
+    );
+    await deleteDoc(docRef);
   }
 }

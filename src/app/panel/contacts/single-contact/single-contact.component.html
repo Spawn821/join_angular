@@ -20,7 +20,7 @@
             <span>Edit</span>
           </div>
 
-          <div>
+          <div (click)="deleteContact(contact)">
             <img src="/img/delete.png" alt="edit" />
             <span>Delete</span>
           </div>
@@ -41,5 +41,7 @@
         <span>{{ contact.phoneNumber }}</span>
       </div>
     </article>
+  } @else {
+    <span>Hallo</span>
   }
 </section>
