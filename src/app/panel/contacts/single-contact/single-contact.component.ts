@@ -25,4 +25,10 @@ export class SingleContactComponent {
       console.error('Fehler beim Löschen des Kontakts:', error);
     }
   }
+
+  editContact() {
+    if (this.contact) {
+      this.contactService.openEditContact(this.contact);
+    }
+  }
 }

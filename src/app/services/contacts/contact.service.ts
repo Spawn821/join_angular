@@ -11,6 +11,7 @@ export class ContactService {
   firestoreService = inject(FirestoreService);
 
   newContactWindow: boolean = false;
+  editingContact: contacts | null = null;
 
   contactColors = [
     '#FF7A00',
@@ -33,6 +34,14 @@ export class ContactService {
 
   addNewContactWindow() {
     this.newContactWindow = !this.newContactWindow;
+    if (!this.newContactWindow) {
+      this.editingContact = null;
+    }
+  }
+
+  openEditContact(contact: contacts) {
+    this.editingContact = contact;
+    this.newContactWindow = true;
   }
 
   async addNewContact(newContact: newContact) {
@@ -79,5 +88,25 @@ export class ContactService {
       contactId
     );
     await deleteDoc(docRef);
+  }
+
+  async updateContact(contactId: string, updatedContact: newContact) {
+    const docRef = doc(
+      collection(
+        this.firestoreService.getCollection('contacts'),
+        'DO7MD4HsU3RzCGbZyQDReZLrQFn2',
+        'contacts'
+      ),
+      contactId
+    );
+    
+    const contactData = {
+      name: updatedContact.name,
+      email: updatedContact.email,
+      phoneNumber: updatedContact.phoneNumber,
+      initials: this.getInitials(updatedContact.name)
+    };
+    
+    await updateDoc(docRef, contactData);
   }
 }
