@@ -5,6 +5,8 @@ import {
   FormsModule,
   ReactiveFormsModule,
   Validators,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { ContactService } from '../../../services/contacts/contact.service';
 import { CommonModule } from '@angular/common';
@@ -25,17 +27,37 @@ export class NewContactComponent implements OnInit {
   private fb = inject(FormBuilder);
   contactService = inject(ContactService);
 
+  private firstLastNameValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value?.trim();
+    if (!value) {
+      return { required: true };
+    }
+    
+    const nameParts = value.split(' ').filter((part: string) => part.length > 0);
+    if (nameParts.length < 2) {
+      return { firstLastNameRequired: true };
+    }
+    if (nameParts.length > 2) {
+      return { tooManyNames: true };
+    }
+    
+    return null;
+  }
+
   ngOnInit(): void {
     this.contactForm = this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [this.firstLastNameValidator.bind(this)]],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.required],
     });
 
-    // Prüfen ob ein Kontakt bearbeitet wird
+    this.contactEdit()
+  }
+
+  contactEdit() {
     this.editingContact = this.contactService.editingContact;
     this.isEditing = !!this.editingContact;
-    
+
     if (this.isEditing && this.editingContact) {
       this.contactForm.patchValue({
         name: this.editingContact.name,
@@ -48,13 +70,10 @@ export class NewContactComponent implements OnInit {
   onSubmit(): void {
     if (this.contactForm.valid) {
       if (this.isEditing && this.editingContact?.id) {
-        // Kontakt aktualisieren
         this.contactService.updateContact(this.editingContact.id, this.contactForm.value);
       } else {
-        // Neuen Kontakt erstellen
         this.contactService.addNewContact(this.contactForm.value);
       }
-      
       this.contactService.addNewContactWindow();
       this.contactForm.reset();
       this.loginError = false;

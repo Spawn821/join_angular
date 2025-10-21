@@ -14,14 +14,14 @@
       <div class="name">
         <span>{{ contact.name }}</span>
 
-        <div class="edit-delete-contact" (click)="editContact()">
-          <div>
+        <div class="edit-delete-contact">
+          <div (click)="editContact()">
             <img src="/img/edit.png" alt="edit" />
             <span>Edit</span>
           </div>
 
           <div (click)="deleteContact(contact)">
-            <img src="/img/delete.png" alt="edit" />
+            <img src="/img/delete.png" alt="delete" />
             <span>Delete</span>
           </div>
         </div>

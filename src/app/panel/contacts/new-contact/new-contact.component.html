@@ -21,7 +21,7 @@
         <div class="input-with-error">
           <label
             for="username"
-            [ngClass]="loginError ? 'border-error' : 'border-success'"
+            [ngClass]="contactForm.get('name')?.invalid && (contactForm.get('name')?.touched || loginError) ? 'border-error' : 'border-success'"
           >
             <div>
               <img src="/img/person.png" alt="User" />
@@ -33,6 +33,11 @@
               placeholder="Username"
             />
           </label>
+          <div class="error-messages" *ngIf="contactForm.get('name')?.invalid && (contactForm.get('name')?.touched || loginError)">
+            <span *ngIf="contactForm.get('name')?.errors?.['required']">Name is required</span>
+            <span *ngIf="contactForm.get('name')?.errors?.['firstLastNameRequired']">Please enter both first name and last name</span>
+            <span *ngIf="contactForm.get('name')?.errors?.['tooManyNames']">Please enter only first name and last name (no middle names)</span>
+          </div>
         </div>
 
         <div class="input-with-error">
