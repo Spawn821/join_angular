@@ -31,11 +31,11 @@ export class FirestoreService {
     });
   }
 
-  private createContactsQuery() {
+  private createContactsQuery(uid:string) {
     return query(
       collection(
         this.firestore,
-        `contacts/DO7MD4HsU3RzCGbZyQDReZLrQFn2/contacts`,
+        `contacts/${uid}/contacts`,
       ),
       orderBy('name'),
     );
@@ -52,8 +52,8 @@ export class FirestoreService {
     });
   }
 
- getContacts(): Observable<any[]> {
-    const q = this.createContactsQuery();
+ getContacts(uid:string): Observable<any[]> {
+    const q = this.createContactsQuery(uid);
 
     return new Observable((observer) => {
       const unsubscribe = onSnapshot(

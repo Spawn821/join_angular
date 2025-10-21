@@ -44,11 +44,11 @@ export class ContactService {
     this.newContactWindow = true;
   }
 
-  async addNewContact(newContact: newContact) {
-    const docRef = await addDoc(
+  async addNewContact(newContact: newContact, uid:string) {
+    await addDoc(
       collection(
         this.firestoreService.getCollection('contacts'),
-        'DO7MD4HsU3RzCGbZyQDReZLrQFn2',
+        `${uid}`,
         'contacts',
       ),
       this.getNewContact(newContact),
@@ -78,11 +78,11 @@ export class ContactService {
     return firstLetter + secondLetter;
   }
 
-  async deleteContact(contactId: string) {
+  async deleteContact(contactId: string, uid:string) {
     const docRef = doc(
       collection(
         this.firestoreService.getCollection('contacts'),
-        'DO7MD4HsU3RzCGbZyQDReZLrQFn2',
+        `${uid}`,
         'contacts'
       ),
       contactId

@@ -11,6 +11,7 @@ import {
 import { ContactService } from '../../../services/contacts/contact.service';
 import { CommonModule } from '@angular/common';
 import { contacts } from '../../../interfaces/user-data';
+import { AuthService } from '../../../services/authentication/auth.service';
 
 @Component({
   selector: 'app-new-contact',
@@ -26,6 +27,7 @@ export class NewContactComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   contactService = inject(ContactService);
+  authService = inject(AuthService);
 
   private firstLastNameValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value?.trim();
@@ -72,7 +74,10 @@ export class NewContactComponent implements OnInit {
       if (this.isEditing && this.editingContact?.id) {
         this.contactService.updateContact(this.editingContact.id, this.contactForm.value);
       } else {
-        this.contactService.addNewContact(this.contactForm.value);
+        let uid = this.authService.getCurrentUserUid();
+        if (uid) {
+          this.contactService.addNewContact(this.contactForm.value, uid);
+        }
       }
       this.contactService.addNewContactWindow();
       this.contactForm.reset();

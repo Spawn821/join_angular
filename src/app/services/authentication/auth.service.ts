@@ -1,8 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, Auth, signOut, setPersistence, browserSessionPersistence } from '@angular/fire/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, Auth, signOut, setPersistence, browserSessionPersistence, onAuthStateChanged } from '@angular/fire/auth';
 import { SignupLoginForm } from '../../interfaces/signup-login-form';
 import { LoginData } from '../../interfaces/login-data';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,44 @@ async login(loginData: LoginData) {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+    });
+  }
+
+  /**
+   * Gibt die aktuellen User-Daten aus dem Session Storage zurück
+   * @returns User | null - Die User-Daten oder null wenn nicht eingeloggt
+   */
+  getCurrentUserUid() {
+    return this.auth.currentUser?.uid;
+  }
+
+  /**
+   * Wartet bis User-Daten verfügbar sind und gibt dann die UID zurück
+   * @returns Promise<string | null> - UID oder null wenn nicht eingeloggt
+   */
+  async waitForUserUid(): Promise<string | null> {
+    return new Promise((resolve) => {
+      if (this.auth.currentUser) {
+        resolve(this.auth.currentUser.uid);
+      } else {
+        const unsubscribe = onAuthStateChanged(this.auth, (user) => {
+          unsubscribe();
+          resolve(user?.uid || null);
+        });
+      }
+    });
+  }
+
+  /**
+   * Observable für User Auth State
+   * @returns Observable<any> - Firebase User oder null
+   */
+  getAuthState(): Observable<any> {
+    return new Observable((observer) => {
+      const unsubscribe = onAuthStateChanged(this.auth, (user) => {
+        observer.next(user);
+      });
+      return unsubscribe;
     });
   }
 }

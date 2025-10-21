@@ -7,6 +7,7 @@ import { contacts } from '../../interfaces/user-data';
 import { SingleContactComponent } from './single-contact/single-contact.component';
 import { NewContactComponent } from "./new-contact/new-contact.component";
 import { ContactService } from '../../services/contacts/contact.service';
+import { AuthService } from '../../services/authentication/auth.service';
 
 @Component({
   selector: 'app-contacts',
@@ -17,15 +18,15 @@ import { ContactService } from '../../services/contacts/contact.service';
 export class ContactsComponent {
   firestoreService = inject(FirestoreService);
   contactService = inject(ContactService);
+  authService = inject(AuthService);
   contacts$?: Observable<contacts[]>;
   selectedContact?: contacts;
 
-  ngOnInit() {
-    console.log('Hallo Welt');
-    this.contacts$ = this.firestoreService.getContacts();
-    // this.contacts$.subscribe((name) => {
-    //   console.log(name);
-    // });
+  async ngOnInit() {
+    const uid = await this.authService.waitForUserUid();
+    if (uid) {
+      this.contacts$ = this.firestoreService.getContacts(uid);
+    }
   }
 
   selectContact(contact: contacts) {
