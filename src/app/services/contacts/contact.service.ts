@@ -1,7 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { addDoc, collection, Firestore, deleteDoc, doc, updateDoc } from '@angular/fire/firestore';
 import { FirestoreService } from '../firestore/firestore.service';
 import { contacts, newContact } from '../../interfaces/user-data';
+import { AuthService } from '../authentication/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,9 @@ import { contacts, newContact } from '../../interfaces/user-data';
 export class ContactService {
   firestore = inject(Firestore);
   firestoreService = inject(FirestoreService);
+  authService = inject(AuthService);
 
+  selectedContact = signal<contacts | null>(null);
   newContactWindow: boolean = false;
   editingContact: contacts | null = null;
 
@@ -44,15 +47,17 @@ export class ContactService {
     this.newContactWindow = true;
   }
 
-  async addNewContact(newContact: newContact, uid:string) {
+  async addNewContact(newContact: newContact) {
+    let contact = this.getNewContact(newContact)
     await addDoc(
       collection(
         this.firestoreService.getCollection('contacts'),
-        `${uid}`,
+        `${this.authService.getCurrentUserUid()}`,
         'contacts',
       ),
-      this.getNewContact(newContact),
+      contact,
     );
+    // this.selectedContact.set(contact)
   }
 
   getNewContact(newContact: newContact) {
@@ -94,7 +99,7 @@ export class ContactService {
     const docRef = doc(
       collection(
         this.firestoreService.getCollection('contacts'),
-        'DO7MD4HsU3RzCGbZyQDReZLrQFn2',
+        `${this.authService.getCurrentUserUid()}`,
         'contacts'
       ),
       contactId

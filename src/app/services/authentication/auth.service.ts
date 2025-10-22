@@ -55,18 +55,10 @@ async login(loginData: LoginData) {
     });
   }
 
-  /**
-   * Gibt die aktuellen User-Daten aus dem Session Storage zurück
-   * @returns User | null - Die User-Daten oder null wenn nicht eingeloggt
-   */
   getCurrentUserUid() {
     return this.auth.currentUser?.uid;
   }
 
-  /**
-   * Wartet bis User-Daten verfügbar sind und gibt dann die UID zurück
-   * @returns Promise<string | null> - UID oder null wenn nicht eingeloggt
-   */
   async waitForUserUid(): Promise<string | null> {
     return new Promise((resolve) => {
       if (this.auth.currentUser) {
@@ -80,10 +72,6 @@ async login(loginData: LoginData) {
     });
   }
 
-  /**
-   * Observable für User Auth State
-   * @returns Observable<any> - Firebase User oder null
-   */
   getAuthState(): Observable<any> {
     return new Observable((observer) => {
       const unsubscribe = onAuthStateChanged(this.auth, (user) => {

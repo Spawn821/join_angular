@@ -34,4 +34,8 @@ export class SingleContactComponent {
       this.contactService.openEditContact(this.contact);
     }
   }
+
+  get test() {
+    return this.contactService.selectedContact();
+  }
 }

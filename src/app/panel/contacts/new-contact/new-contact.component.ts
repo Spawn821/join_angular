@@ -34,7 +34,7 @@ export class NewContactComponent implements OnInit {
     if (!value) {
       return { required: true };
     }
-    
+
     const nameParts = value.split(' ').filter((part: string) => part.length > 0);
     if (nameParts.length < 2) {
       return { firstLastNameRequired: true };
@@ -42,7 +42,7 @@ export class NewContactComponent implements OnInit {
     if (nameParts.length > 2) {
       return { tooManyNames: true };
     }
-    
+
     return null;
   }
 
@@ -74,10 +74,7 @@ export class NewContactComponent implements OnInit {
       if (this.isEditing && this.editingContact?.id) {
         this.contactService.updateContact(this.editingContact.id, this.contactForm.value);
       } else {
-        let uid = this.authService.getCurrentUserUid();
-        if (uid) {
-          this.contactService.addNewContact(this.contactForm.value, uid);
-        }
+        this.contactService.addNewContact(this.contactForm.value);
       }
       this.contactService.addNewContactWindow();
       this.contactForm.reset();

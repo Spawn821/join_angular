@@ -24,12 +24,11 @@ export class ContactsComponent {
 
   async ngOnInit() {
     const uid = await this.authService.waitForUserUid();
-    if (uid) {
-      this.contacts$ = this.firestoreService.getContacts(uid);
-    }
+    this.contacts$ = this.firestoreService.getContacts(uid ?? '');
   }
 
   selectContact(contact: contacts) {
+    this.contactService.selectedContact.set(contact);
     this.selectedContact = contact;
   }
 
