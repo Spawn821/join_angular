@@ -1,5 +1,17 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { addDoc, collection, Firestore, deleteDoc, doc, updateDoc } from '@angular/fire/firestore';
+import {
+  addDoc,
+  collection,
+  Firestore,
+  deleteDoc,
+  doc,
+  updateDoc,
+  query,
+  where,
+  getDocs,
+  orderBy,
+  onSnapshot,
+} from '@angular/fire/firestore';
 import { FirestoreService } from '../firestore/firestore.service';
 import { contacts, newContact } from '../../interfaces/user-data';
 import { AuthService } from '../authentication/auth.service';
@@ -12,6 +24,7 @@ export class ContactService {
   firestoreService = inject(FirestoreService);
   authService = inject(AuthService);
 
+  contacts = signal<contacts[]>([]);
   selectedContact = signal<contacts | null>(null);
   newContactWindow: boolean = false;
   editingContact: contacts | null = null;
@@ -33,7 +46,41 @@ export class ContactService {
     '#FFBB2B',
   ];
 
-  constructor() { }
+  constructor() {}
+
+  private createContactsQuery(uid: string) {
+    return query(
+      collection(this.firestore, `contacts/${uid}/contacts`),
+      orderBy('name'),
+    );
+  }
+
+  getContacts(uid: string) {
+    const q = this.createContactsQuery(uid);
+    const unsubscribe = onSnapshot(
+      q,
+      (querySnapshot) => {
+        const contacts = querySnapshot.docs.map((doc) =>
+          this.getContactData(doc)
+        );
+        this.contacts.set(contacts);
+      },
+      (error) => console.error(error)
+    );
+    return () => unsubscribe();
+  }
+
+  getContactData(doc: any) {
+    return {
+      name: doc.data()['name'],
+      id: doc.id,
+      email: doc.data()['email'],
+      color: doc.data()['color'],
+      initials: doc.data()['initials'],
+      phoneNumber: doc.data()['phoneNumber'],
+      firstContactperLetter: doc.data()['firstContactperLetter'],
+    };
+  }
 
   addNewContactWindow() {
     this.newContactWindow = !this.newContactWindow;
@@ -48,25 +95,29 @@ export class ContactService {
   }
 
   async addNewContact(newContact: newContact) {
-    let contact = this.getNewContact(newContact)
-    await addDoc(
-      collection(
-        this.firestoreService.getCollection('contacts'),
-        `${this.authService.getCurrentUserUid()}`,
-        'contacts',
-      ),
-      contact,
+    const firstLetter = newContact.name.trim().charAt(0).toUpperCase();
+    const contactsRef = collection(
+      this.firestoreService.getCollection('contacts'),
+      `${this.authService.getCurrentUserUid()}`,
+      'contacts',
     );
-    // this.selectedContact.set(contact)
+    const q = query(contactsRef, where('firstLetter', '==', firstLetter));
+    const querySnapshot = await getDocs(q);
+    const isFirst = querySnapshot.empty;
+    const contact = this.getNewContact(newContact, isFirst, firstLetter);
+    const docRef = await addDoc(contactsRef, contact);
+    await updateDoc(docRef, { id: docRef.id });
   }
 
-  getNewContact(newContact: newContact) {
+  getNewContact(newContact: newContact, isFirst: boolean, firstLetter: string) {
     return {
       name: newContact.name,
       email: newContact.email,
       phoneNumber: newContact.phoneNumber,
       color: this.getColor(),
       initials: this.getInitials(newContact.name),
+      firstLetter: firstLetter,
+      firstContactperLetter: isFirst,
     };
   }
 
@@ -83,14 +134,14 @@ export class ContactService {
     return firstLetter + secondLetter;
   }
 
-  async deleteContact(contactId: string, uid:string) {
+  async deleteContact(contactId: string, uid: string) {
     const docRef = doc(
       collection(
         this.firestoreService.getCollection('contacts'),
         `${uid}`,
-        'contacts'
+        'contacts',
       ),
-      contactId
+      contactId,
     );
     await deleteDoc(docRef);
   }
@@ -100,18 +151,17 @@ export class ContactService {
       collection(
         this.firestoreService.getCollection('contacts'),
         `${this.authService.getCurrentUserUid()}`,
-        'contacts'
+        'contacts',
       ),
-      contactId
+      contactId,
     );
-    
+
     const contactData = {
       name: updatedContact.name,
       email: updatedContact.email,
       phoneNumber: updatedContact.phoneNumber,
-      initials: this.getInitials(updatedContact.name)
+      initials: this.getInitials(updatedContact.name),
     };
-    
     await updateDoc(docRef, contactData);
   }
 }

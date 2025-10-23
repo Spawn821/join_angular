@@ -3,13 +3,9 @@ import {
   collection,
   doc,
   Firestore,
-  onSnapshot,
-  orderBy,
-  query,
   setDoc,
 } from '@angular/fire/firestore';
 import { UserData } from '../../interfaces/user-data';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -29,58 +25,5 @@ export class FirestoreService {
       email: userData.email,
       uid: userData.uid,
     });
-  }
-
-  private createContactsQuery(uid:string) {
-    return query(
-      collection(
-        this.firestore,
-        `contacts/${uid}/contacts`,
-      ),
-      orderBy('name'),
-    );
-  }
-
-  private markFirstContactPerLetter(docs: any[]): boolean[] {
-    const seenLetters = new Set<string>();
-    return docs.map((doc) => {
-      const name = doc.data()['name'] ?? '';
-      const firstLetter = name[0]?.toUpperCase() ?? '';
-      const firstContactPerLetter = !seenLetters.has(firstLetter);
-      seenLetters.add(firstLetter);
-      return firstContactPerLetter;
-    });
-  }
-
- getContacts(uid:string): Observable<any[]> {
-    const q = this.createContactsQuery(uid);
-
-    return new Observable((observer) => {
-      const unsubscribe = onSnapshot(
-        q,
-        (querySnapshot) => {
-          const firstContactPerLetter = this.markFirstContactPerLetter(querySnapshot.docs);
-          const contacts = querySnapshot.docs.map((doc, i) =>
-            this.getContactData(doc, firstContactPerLetter[i]),
-          );
-          observer.next(contacts);
-        },
-        (error) => observer.error(error),
-      );
-      observer.add(() => unsubscribe());
-    });
-  }
-
-
-  getContactData(doc: any, firstContactperLetter: boolean) {
-    return {
-      name: doc.data()['name'],
-      id: doc.id,
-      email: doc.data()['email'],
-      color: doc.data()['color'],
-      initials: doc.data()['initials'],
-      phoneNumber: doc.data()['phoneNumber'],
-      firstContactperLetter,
-    };
   }
 }

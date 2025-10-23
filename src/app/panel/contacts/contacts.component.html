@@ -17,7 +17,8 @@
     }
 
     <div class="contact-list">
-      @for (contact of contacts$ | async; track $index) {
+      <!-- @for (contact of contacts$ | async; track $index) { -->
+       @for( contact of contacts; track $index) {
         @if (contact.firstContactperLetter) {
           <span class="letter">{{ contact.name.charAt(0) }}</span>
           <div class="separator"><div></div></div>
