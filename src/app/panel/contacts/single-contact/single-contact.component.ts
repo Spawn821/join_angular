@@ -30,12 +30,12 @@ export class SingleContactComponent {
   }
 
   editContact() {
-    if (this.contact) {
-      this.contactService.openEditContact(this.contact);
+    if (this.singleContact) {
+      this.contactService.openEditContact(this.singleContact);
     }
   }
 
-  get test() {
+  get singleContact() {
     return this.contactService.selectedContact();
   }
 }

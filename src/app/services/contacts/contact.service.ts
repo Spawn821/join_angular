@@ -13,7 +13,7 @@ import {
   onSnapshot,
 } from '@angular/fire/firestore';
 import { FirestoreService } from '../firestore/firestore.service';
-import { contacts, newContact } from '../../interfaces/user-data';
+import { contacts } from '../../interfaces/user-data';
 import { AuthService } from '../authentication/auth.service';
 
 @Injectable({
@@ -61,11 +61,11 @@ export class ContactService {
       q,
       (querySnapshot) => {
         const contacts = querySnapshot.docs.map((doc) =>
-          this.getContactData(doc)
+          this.getContactData(doc),
         );
         this.contacts.set(contacts);
       },
-      (error) => console.error(error)
+      (error) => console.error(error),
     );
     return () => unsubscribe();
   }
@@ -94,7 +94,7 @@ export class ContactService {
     this.newContactWindow = true;
   }
 
-  async addNewContact(newContact: newContact) {
+  async addNewContact(newContact: contacts) {
     const firstLetter = newContact.name.trim().charAt(0).toUpperCase();
     const contactsRef = collection(
       this.firestoreService.getCollection('contacts'),
@@ -109,7 +109,7 @@ export class ContactService {
     await updateDoc(docRef, { id: docRef.id });
   }
 
-  getNewContact(newContact: newContact, isFirst: boolean, firstLetter: string) {
+  getNewContact(newContact: contacts, isFirst: boolean, firstLetter: string) {
     return {
       name: newContact.name,
       email: newContact.email,
@@ -146,22 +146,45 @@ export class ContactService {
     await deleteDoc(docRef);
   }
 
-  async updateContact(contactId: string, updatedContact: newContact) {
-    const docRef = doc(
-      collection(
-        this.firestoreService.getCollection('contacts'),
-        `${this.authService.getCurrentUserUid()}`,
-        'contacts',
-      ),
-      contactId,
-    );
+async updateContact(contactId: string, updatedContact: contacts) {
+  const firstLetter = updatedContact.name.trim().charAt(0).toUpperCase();
+  const contactsRef = collection(
+    this.firestoreService.getCollection('contacts'),
+    `${this.authService.getCurrentUserUid()}`,
+    'contacts',
+  );
+  const q = query(contactsRef, where('firstLetter', '==', firstLetter));
+  const querySnapshot = await getDocs(q);
+  const isFirst = querySnapshot.empty;
 
-    const contactData = {
-      name: updatedContact.name,
-      email: updatedContact.email,
-      phoneNumber: updatedContact.phoneNumber,
-      initials: this.getInitials(updatedContact.name),
-    };
-    await updateDoc(docRef, contactData);
-  }
+  const docRef = this.getCollection(contactId);
+  const contactData = this.getUpdateContact(updatedContact, isFirst, firstLetter);
+
+  await updateDoc(docRef, contactData);
+  this.selectedContact.set({ ...contactData, id: contactId });
+}
+
+getCollection(contactId: string) {
+  return doc(
+    collection(
+      this.firestoreService.getCollection('contacts'),
+      `${this.authService.getCurrentUserUid()}`,
+      'contacts',
+    ),
+    contactId,
+  );
+}
+
+getUpdateContact(updatedContact: contacts, isFirst: boolean, firstLetter: string) {
+  return {
+    name: updatedContact.name,
+    email: updatedContact.email,
+    phoneNumber: updatedContact.phoneNumber,
+    initials: this.getInitials(updatedContact.name),
+    color: this.selectedContact()?.color ?? this.getColor(),
+    firstContactperLetter: isFirst,
+    firstLetter: firstLetter,
+  };
+}
+
 }

@@ -1,18 +1,18 @@
 <section>
-  @if (contact) {
+  @if (singleContact) {
     <div class="headline">
       <h2>Contacts</h2>
       <span></span>
       <em>Better with a team</em>
     </div>
     <article class="header">
-      <div class="initials" [ngStyle]="{ 'background-color': contact.color }">
+      <div class="initials" [ngStyle]="{ 'background-color': singleContact.color }">
         <div>
-          <span>{{ contact.initials }}</span>
+          <span>{{ singleContact.initials }}</span>
         </div>
       </div>
       <div class="name">
-        <span>{{ test?.name }}</span>
+        <span>{{ singleContact.name }}</span>
 
         <div class="edit-delete-contact">
           <div (click)="editContact()">
@@ -33,12 +33,12 @@
     <article class="contact-information">
       <div>
         <h4>Email</h4>
-        <span>{{ contact.email }}</span>
+        <span>{{ singleContact.email }}</span>
       </div>
 
       <div>
         <h4>Phone</h4>
-        <span>{{ contact.phoneNumber }}</span>
+        <span>{{ singleContact.phoneNumber }}</span>
       </div>
     </article>
   } @else {
