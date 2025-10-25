@@ -29,11 +29,8 @@ export class ContactsComponent {
     return this.contactService.contacts();
   }
 
-  selectContact(contact: contacts) {
-    console.log(contact);
-    
+  selectContact(contact: contacts) {    
     this.contactService.selectedContact.set(contact);
-    // this.selectedContact = contact;
   }
 
   get newContactWindow() {

@@ -12,18 +12,15 @@ import { AuthService } from '../../../services/authentication/auth.service';
   styleUrl: './single-contact.component.scss',
 })
 export class SingleContactComponent {
-
   firestoreService = inject(FirestoreService);
   contactService = inject(ContactService);
   authService = inject(AuthService);
-  
-  @Input() contact?: contacts;
 
-  async deleteContact(contact: any) {
+  async deleteContact() {
     let uid = await this.authService.waitForUserUid();
     try {
-      await this.contactService.deleteContact(contact.id, uid ?? '');
-      this.contact = undefined;
+      await this.contactService.deleteContact(uid ?? '');
+      this.contactService.selectedContact.set(null);
     } catch (error) {
       console.error('Fehler beim Löschen des Kontakts:', error);
     }

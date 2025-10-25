@@ -54,7 +54,6 @@ export class ContactService {
       orderBy('name'),
     );
   }
-
   getContacts(uid: string) {
     const q = this.createContactsQuery(uid);
     const unsubscribe = onSnapshot(
@@ -63,11 +62,28 @@ export class ContactService {
         const contacts = querySnapshot.docs.map((doc) =>
           this.getContactData(doc),
         );
-        this.contacts.set(contacts);
+        const sorted = this.sortContacts(contacts);
+        const marked = this.markFirstPerLetter(sorted);
+        this.contacts.set(marked);
       },
       (error) => console.error(error),
     );
+
     return () => unsubscribe();
+  }
+
+  private sortContacts(contacts: contacts[]): contacts[] {
+    return [...contacts].sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  private markFirstPerLetter(contacts: contacts[]): contacts[] {
+    const seenLetters = new Set<string>();
+    return contacts.map((contact) => {
+      const firstLetter = contact.name.trim().charAt(0).toUpperCase();
+      const isFirst = !seenLetters.has(firstLetter);
+      seenLetters.add(firstLetter);
+      return { ...contact, firstContactperLetter: isFirst };
+    });
   }
 
   getContactData(doc: any) {
@@ -134,7 +150,8 @@ export class ContactService {
     return firstLetter + secondLetter;
   }
 
-  async deleteContact(contactId: string, uid: string) {
+  async deleteContact(uid: string) {
+    const contactId = this.selectedContact()?.id;
     const docRef = doc(
       collection(
         this.firestoreService.getCollection('contacts'),
@@ -146,45 +163,52 @@ export class ContactService {
     await deleteDoc(docRef);
   }
 
-async updateContact(contactId: string, updatedContact: contacts) {
-  const firstLetter = updatedContact.name.trim().charAt(0).toUpperCase();
-  const contactsRef = collection(
-    this.firestoreService.getCollection('contacts'),
-    `${this.authService.getCurrentUserUid()}`,
-    'contacts',
-  );
-  const q = query(contactsRef, where('firstLetter', '==', firstLetter));
-  const querySnapshot = await getDocs(q);
-  const isFirst = querySnapshot.empty;
-
-  const docRef = this.getCollection(contactId);
-  const contactData = this.getUpdateContact(updatedContact, isFirst, firstLetter);
-
-  await updateDoc(docRef, contactData);
-  this.selectedContact.set({ ...contactData, id: contactId });
-}
-
-getCollection(contactId: string) {
-  return doc(
-    collection(
+  async updateContact(contactId: string, updatedContact: contacts) {
+    const firstLetter = updatedContact.name.trim().charAt(0).toUpperCase();
+    const contactsRef = collection(
       this.firestoreService.getCollection('contacts'),
       `${this.authService.getCurrentUserUid()}`,
       'contacts',
-    ),
-    contactId,
-  );
-}
+    );
+    const q = query(contactsRef, where('firstLetter', '==', firstLetter));
+    const querySnapshot = await getDocs(q);
+    const isFirst = querySnapshot.empty;
 
-getUpdateContact(updatedContact: contacts, isFirst: boolean, firstLetter: string) {
-  return {
-    name: updatedContact.name,
-    email: updatedContact.email,
-    phoneNumber: updatedContact.phoneNumber,
-    initials: this.getInitials(updatedContact.name),
-    color: this.selectedContact()?.color ?? this.getColor(),
-    firstContactperLetter: isFirst,
-    firstLetter: firstLetter,
-  };
-}
+    const docRef = this.getCollection(contactId);
+    const contactData = this.getUpdateContact(
+      updatedContact,
+      isFirst,
+      firstLetter,
+    );
 
+    await updateDoc(docRef, contactData);
+    this.selectedContact.set({ ...contactData, id: contactId });
+  }
+
+  getCollection(contactId: string) {
+    return doc(
+      collection(
+        this.firestoreService.getCollection('contacts'),
+        `${this.authService.getCurrentUserUid()}`,
+        'contacts',
+      ),
+      contactId,
+    );
+  }
+
+  getUpdateContact(
+    updatedContact: contacts,
+    isFirst: boolean,
+    firstLetter: string,
+  ) {
+    return {
+      name: updatedContact.name,
+      email: updatedContact.email,
+      phoneNumber: updatedContact.phoneNumber,
+      initials: this.getInitials(updatedContact.name),
+      color: this.selectedContact()?.color ?? this.getColor(),
+      firstContactperLetter: isFirst,
+      firstLetter: firstLetter,
+    };
+  }
 }

@@ -1,18 +1,18 @@
 <section>
-  @if (singleContact) {
+  @if (this.contactService.selectedContact()) {
     <div class="headline">
       <h2>Contacts</h2>
       <span></span>
       <em>Better with a team</em>
     </div>
     <article class="header">
-      <div class="initials" [ngStyle]="{ 'background-color': singleContact.color }">
+      <div class="initials" [ngStyle]="{ 'background-color': singleContact?.color }">
         <div>
-          <span>{{ singleContact.initials }}</span>
+          <span>{{ singleContact?.initials }}</span>
         </div>
       </div>
       <div class="name">
-        <span>{{ singleContact.name }}</span>
+        <span>{{ singleContact?.name }}</span>
 
         <div class="edit-delete-contact">
           <div (click)="editContact()">
@@ -20,7 +20,7 @@
             <span>Edit</span>
           </div>
 
-          <div (click)="deleteContact(contact)">
+          <div (click)="deleteContact()">
             <img src="/img/delete.png" alt="delete" />
             <span>Delete</span>
           </div>
@@ -33,12 +33,12 @@
     <article class="contact-information">
       <div>
         <h4>Email</h4>
-        <span>{{ singleContact.email }}</span>
+        <span>{{ singleContact?.email }}</span>
       </div>
 
       <div>
         <h4>Phone</h4>
-        <span>{{ singleContact.phoneNumber }}</span>
+        <span>{{ singleContact?.phoneNumber }}</span>
       </div>
     </article>
   } @else {
